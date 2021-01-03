@@ -1,0 +1,19 @@
+.auth-background {
+  background: url("./../assets/images/background.png") no-repeat fixed right top !important;
+  background-blend-mode: lighten;
+}
+
+.main-background {
+  background: url("./../assets/images/background.png") no-repeat fixed right top,
+  linear-gradient( 0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7))!important;
+  background-blend-mode: lighten;
+}
+
+.grad-btn {
+  background: rgb(63, 94, 251);
+  background: radial-gradient(at top left, #7be495 0%, #329d9c 100%);
+}
+
+.theme--light.v-stepper {
+  background: transparent !important;
+}
