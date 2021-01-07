@@ -31,16 +31,17 @@
     ></v-text-field>
     <v-checkbox label="Remember me" class="mt-0 mb-2 ml-6"></v-checkbox>
     <v-btn
+      :loading="loading"
       rounded
       color="primary"
       large
+      block
       type="submit"
-      width="100%"
-      v-text="'Sign in'"
       height="60"
       class="grad-btn"
       @click.prevent="csignup"
-    ></v-btn>
+      >Sign in</v-btn
+    >
   </div>
 </template>
 
@@ -55,13 +56,16 @@ export default {
       email: "ghorai.rakesh931998@gmail.com",
       pass: "#Ghorai12$"
     },
-    msg: null
+    msg: null,
+    loading: false
   }),
   methods: {
     ...mapActions(["signUp"]),
     async csignup() {
+      this.loading = true;
       this.signUp(this.user).then(data => {
         this.msg = data.message;
+        this.loading = false;
       });
     }
   }

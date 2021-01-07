@@ -1,3 +1,13 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .auth-background {
   background: url("./../assets/images/background.png") no-repeat fixed right top !important;
   background-blend-mode: lighten;
@@ -16,4 +26,42 @@
 
 .theme--light.v-stepper {
   background: transparent !important;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.p-absolute {
+  position: absolute;
+}
+
+.h-100-p {
+  height: 100%;
+}
+
+// dashboard
+.dashboard .quarter_icon {
+  top: 0;
+  right: 0;
+  border-radius: 6px 20px 6px 6px;
+  background-color: #205072;
+  margin: 6px;
+  padding: 5px;
+
+  .v-icon {
+    margin: -1.5px 0;
+  }
+}
+
+// barcode configuration
+.margin_link {
+  width: 50%;
+  border: 2px solid black;
+  opacity: 54%;
+  border-right: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
 }

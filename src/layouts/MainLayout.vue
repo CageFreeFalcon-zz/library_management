@@ -50,7 +50,14 @@
 
       <template v-slot:append>
         <div class="pb-4 px-2">
-          <v-btn block color="primary" rounded elevation="10" @click="logOut">
+          <v-btn
+            block
+            color="primary"
+            :loading="loading"
+            rounded
+            @click="componentLogOut"
+            class="grad-btn"
+          >
             Logout
           </v-btn>
         </div>
@@ -62,9 +69,7 @@
       class="main-background"
       style="background-size: contain !important;"
     >
-      <v-container>
-        <router-view />
-      </v-container>
+      <router-view />
     </v-main>
   </v-app>
 </template>
@@ -79,6 +84,7 @@ export default {
     return {
       logo: logo,
       drawer: true,
+      loading: false,
       navigation: [
         { icon: "fas fa-home", title: "Home", to: "/" },
         { icon: "fas fa-book", title: "Book", to: "/book" },
@@ -89,7 +95,16 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["logOut"])
+    ...mapActions(["logOut"]),
+    async componentLogOut() {
+      this.loading = true;
+      try {
+        await this.logOut();
+      } catch (e) {
+        alert("Something is not correct");
+        this.loading = false;
+      }
+    }
   },
   computed: {
     below_md() {
