@@ -1,13 +1,15 @@
 import "@fortawesome/fontawesome-free/css/all.css";
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
+import portrait from "../assets/icons/portrait";
+import landscape from "../assets/icons/landscape";
 
 const MY_ICONS = {
   // complete: "...",
-  // cancel: "fab fa-vuejs",
+  // cancel: "...",
   // close: "...",
-  // delete: "", // delete (e.g. v-chip close)
-  clear: "fas fa-times"
+  // delete: "...",
+  clear: "fas fa-times",
   // success: "...",
   // info: "...",
   // warning: "...",
@@ -17,7 +19,7 @@ const MY_ICONS = {
   // checkboxOn: "...",
   // checkboxOff: "...",
   // checkboxIndeterminate: "...",
-  // delimiter: "...", // for carousel
+  // delimiter: "...",
   // sort: "...",
   // expand: "...",
   // menu: "...",
@@ -25,7 +27,7 @@ const MY_ICONS = {
   // dropdown: "...",
   // radioOn: "...",
   // radioOff: "...",
-  // edit: "...",
+  edit: "fas fa-pen",
   // ratingEmpty: "...",
   // ratingFull: "...",
   // ratingHalf: "...",
@@ -33,7 +35,9 @@ const MY_ICONS = {
   // first: "...",
   // last: "...",
   // unfold: "...",
-  // file: "..."
+  // file: "...",
+  portrait: { component: portrait },
+  landscape: { component: landscape }
 };
 
 Vue.use(Vuetify);
