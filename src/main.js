@@ -4,15 +4,18 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 
-import Amplify from "aws-amplify";
-import "@aws-amplify/ui-vue";
+import Amplify, { API } from "aws-amplify";
 import aws_exports from "./aws-exports";
 
 import "./scss/main.scss";
+import MainBackground from "./components/MainBackground";
 
 Amplify.configure(aws_exports);
+API.configure(aws_exports);
 
 Vue.config.productionTip = false;
+
+Vue.component("MainBackground", MainBackground);
 
 new Vue({
   router,

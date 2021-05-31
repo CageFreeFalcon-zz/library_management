@@ -20,7 +20,7 @@ input[type=number] {
 }
 
 .grad-btn {
-  background: rgb(63, 94, 251);
+  background: #329d9c;
   background: radial-gradient(at top left, #7be495 0%, #329d9c 100%);
 }
 
@@ -64,4 +64,27 @@ input[type=number] {
   top: 0;
   bottom: 0;
   right: 0;
+}
+
+//barcode layout
+.v-input__slider .v-messages {
+  display: none;
+}
+
+.otp {
+  .v-input {
+    font-size: 1.5rem;
+  }
+
+  .v-text-field--rounded > .v-input__control > .v-input__slot {
+    padding: 0;
+  }
+
+  input {
+    text-align: center;
+  }
+}
+
+@page {
+  size: 100px 100px;
 }

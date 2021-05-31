@@ -1,5 +1,9 @@
 <template>
-  <component :is="getLayout" />
+  <v-app>
+    <router-view name="appBar" />
+    <router-view name="drawer" />
+    <router-view />
+  </v-app>
 </template>
 
 <script>

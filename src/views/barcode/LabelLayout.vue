@@ -1,0 +1,255 @@
+<template>
+  <MainBackground>
+    <v-container>
+      <h1>Label Layout</h1>
+      <v-row justify="center">
+        <v-card
+          :width="
+            convertToPixel(this.label.width.length, this.label.width.unit)
+          "
+          :height="
+            convertToPixel(this.label.height.length, this.label.height.unit)
+          "
+          class="justify-center d-flex"
+        >
+          <barcode
+            value="123456"
+            :width="this.barcode.width * this.scale_rate"
+            :height="this.barcode.height * this.scale_rate"
+            :margin="0"
+            :text-margin="this.barcode.textMargin * this.scale_rate"
+            :font-size="this.barcode.fontSize * this.scale_rate"
+            :margin-top="this.barcode.marginTop * this.scale_rate"
+            :display-value="barcode.showText"
+          >
+            Please select the barcode configuration properly
+          </barcode>
+        </v-card>
+      </v-row>
+      <v-row>
+        <v-col class="pb-0">
+          <h2>Settings</h2>
+          <p class="red--text text--accent-4 subtitle-2">
+            NOTE:- Please make sure the barcode is placed inside the box resize
+            if necessary
+          </p>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="4">
+          <v-card>
+            <v-card-text>
+              <h4>Zoom</h4>
+              <v-slider
+                v-model="scale_rate"
+                append-icon="fas fa-search-plus"
+                prepend-icon="fas fa-search-minus"
+                min="1"
+                max="3"
+                step="0.1"
+                thumb-label
+                @click:append="() => (this.scale_rate += 0.1)"
+                @click:prepend="() => (this.scale_rate -= 0.1)"
+              >
+                <template v-slot:thumb-label="{ value }">
+                  {{ value + " X" }}
+                </template>
+              </v-slider>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card>
+            <v-card-text>
+              <h4>Barcode Width</h4>
+              <v-slider
+                v-model="barcode.width"
+                append-icon="fas fa-plus"
+                prepend-icon="fas fa-minus"
+                min="1"
+                max="8"
+                step="0.1"
+                @click:append="() => (this.barcode.width += 0.1)"
+                @click:prepend="() => (this.barcode.width -= 0.1)"
+              />
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card>
+            <v-card-text>
+              <h4>Barcode Height</h4>
+              <v-slider
+                v-model="barcode.height"
+                append-icon="fas fa-plus"
+                prepend-icon="fas fa-minus"
+                min="1"
+                max="100"
+                @click:append="() => this.barcode.height++"
+                @click:prepend="() => this.barcode.height--"
+              />
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card>
+            <v-card-text>
+              <h4>Margin Top</h4>
+              <v-slider
+                v-model="barcode.marginTop"
+                append-icon="fas fa-plus"
+                prepend-icon="fas fa-minus"
+                min="0"
+                max="20"
+                @click:append="() => this.barcode.marginTop++"
+                @click:prepend="() => this.barcode.marginTop--"
+              />
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card>
+            <v-card-text>
+              <h4>Text Top Margin</h4>
+              <v-slider
+                v-model="barcode.textMargin"
+                append-icon="fas fa-plus"
+                prepend-icon="fas fa-minus"
+                min="0"
+                max="20"
+                @click:append="() => this.barcode.textMargin++"
+                @click:prepend="() => this.barcode.textMargin--"
+              />
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card>
+            <v-card-text>
+              <h4>Font Size</h4>
+              <v-slider
+                v-model="barcode.fontSize"
+                append-icon="fas fa-plus"
+                prepend-icon="fas fa-minus"
+                min="1"
+                max="30"
+                thumb-label
+                @click:append="() => this.barcode.fontSize++"
+                @click:prepend="() => this.barcode.fontSize--"
+              />
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-checkbox
+            class="mt-0 mb-3"
+            v-model="barcode.showText"
+            label="Show Barcode value at the bottom"
+          />
+        </v-col>
+        <v-col class="flex-grow-0">
+          <v-btn color="primary" @click="showPreview">Print Preview</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </MainBackground>
+</template>
+
+<script>
+import VueBarcode from "vue-barcode";
+import router from "../../router";
+
+export default {
+  name: "Preview",
+  components: {
+    barcode: VueBarcode
+  },
+  data() {
+    return {
+      scale_rate: 2.5,
+      barcode: {
+        width: 2.3,
+        height: 40,
+        marginTop: 5,
+        fontSize: 11,
+        textMargin: 0,
+        showText: true
+      },
+      page: {
+        size: "Custom",
+        orientation: "portrait",
+        width: {
+          length: 10,
+          unit: "in"
+        },
+        height: {
+          length: 10,
+          unit: "cm"
+        }
+      },
+      label: {
+        row: 3,
+        col: 8,
+        count: null,
+        remaining: true,
+        width: {
+          length: 10,
+          unit: "cm"
+        },
+        height: {
+          length: 10,
+          unit: "cm"
+        }
+      },
+      margin: {
+        linkVertical: true,
+        linkHorizontal: true,
+        top: {
+          length: 10,
+          unit: "cm"
+        },
+        bottom: {
+          length: 10,
+          unit: "cm"
+        },
+        left: {
+          length: 10,
+          unit: "cm"
+        },
+        right: {
+          length: 10,
+          unit: "cm"
+        }
+      }
+    };
+  },
+  methods: {
+    convertToPixel(len, unit = "in") {
+      switch (unit) {
+        case "in":
+          return `${Math.floor(+len * 96) * this.scale_rate}px`;
+        case "cm":
+          return this.convertToPixel(len / 2.54);
+        case "mm":
+          return this.convertToPixel(len / 10, "cm");
+      }
+    },
+    showPreview() {
+      let config = {
+        barcode: this.barcode,
+        page: this.page,
+        margin: this.margin,
+        label: this.label
+      };
+      router.push({ path: "/barcode/preview", query: config });
+    }
+  },
+  beforeMount() {
+    this.page = this.$route.query.page;
+    this.label = this.$route.query.label;
+    this.margin = this.$route.query.margin;
+  }
+};
+</script>
+
+<style scoped lang="scss"></style>

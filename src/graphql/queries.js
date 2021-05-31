@@ -5,11 +5,11 @@ export const getUserNotification = /* GraphQL */ `
   query GetUserNotification($id: ID!) {
     getUserNotification(id: $id) {
       id
-      userID
       title
       subtitle
       content
       img_path
+      userna
       _version
       _deleted
       _lastChangedAt
@@ -31,11 +31,11 @@ export const listUserNotifications = /* GraphQL */ `
     ) {
       items {
         id
-        userID
         title
         subtitle
         content
         img_path
+        userna
         _version
         _deleted
         _lastChangedAt
@@ -62,11 +62,11 @@ export const syncUserNotifications = /* GraphQL */ `
     ) {
       items {
         id
-        userID
         title
         subtitle
         content
         img_path
+        userna
         _version
         _deleted
         _lastChangedAt
@@ -86,6 +86,7 @@ export const getAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
+      data
       _version
       _deleted
       _lastChangedAt
@@ -111,6 +112,7 @@ export const listAdminNotifications = /* GraphQL */ `
         title
         subtitle
         content
+        data
         _version
         _deleted
         _lastChangedAt
@@ -141,6 +143,7 @@ export const syncAdminNotifications = /* GraphQL */ `
         title
         subtitle
         content
+        data
         _version
         _deleted
         _lastChangedAt
@@ -211,7 +214,6 @@ export const getBook = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -290,7 +292,6 @@ export const getBookItem = /* GraphQL */ `
     getBookItem(id: $id) {
       id
       price
-      format
       status
       added_on
       rackID
@@ -306,8 +307,8 @@ export const getBookItem = /* GraphQL */ `
           issue_date
           due_date
           status
-          userID
           bookitemID
+          Username
           _version
           _deleted
           _lastChangedAt
@@ -330,7 +331,6 @@ export const listBookItems = /* GraphQL */ `
       items {
         id
         price
-        format
         status
         added_on
         rackID
@@ -366,7 +366,6 @@ export const syncBookItems = /* GraphQL */ `
       items {
         id
         price
-        format
         status
         added_on
         rackID
@@ -402,7 +401,6 @@ export const getRack = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -699,7 +697,7 @@ export const getCard = /* GraphQL */ `
       img_path
       status
       issued_on
-      userID
+      username
       _version
       _deleted
       _lastChangedAt
@@ -721,7 +719,7 @@ export const listCards = /* GraphQL */ `
         img_path
         status
         issued_on
-        userID
+        username
         _version
         _deleted
         _lastChangedAt
@@ -752,7 +750,7 @@ export const syncCards = /* GraphQL */ `
         img_path
         status
         issued_on
-        userID
+        username
         _version
         _deleted
         _lastChangedAt
@@ -771,8 +769,8 @@ export const getTransaction = /* GraphQL */ `
       issue_date
       due_date
       status
-      userID
       bookitemID
+      Username
       _version
       _deleted
       _lastChangedAt
@@ -793,8 +791,8 @@ export const listTransactions = /* GraphQL */ `
         issue_date
         due_date
         status
-        userID
         bookitemID
+        Username
         _version
         _deleted
         _lastChangedAt
@@ -824,185 +822,13 @@ export const syncTransactions = /* GraphQL */ `
         issue_date
         due_date
         status
-        userID
         bookitemID
+        Username
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      username
-      email
-      phone
-      course
-      department
-      year
-      f_name
-      dob
-      address
-      city
-      pincode
-      dp_path
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      UserNotifications {
-        items {
-          id
-          userID
-          title
-          subtitle
-          content
-          img_path
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Cards {
-        items {
-          id
-          card_number
-          img_path
-          status
-          issued_on
-          userID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Transactions {
-        items {
-          id
-          issue_date
-          due_date
-          status
-          userID
-          bookitemID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        username
-        email
-        phone
-        course
-        department
-        year
-        f_name
-        dob
-        address
-        city
-        pincode
-        dp_path
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        UserNotifications {
-          nextToken
-          startedAt
-        }
-        Cards {
-          nextToken
-          startedAt
-        }
-        Transactions {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUsers = /* GraphQL */ `
-  query SyncUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUsers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        username
-        email
-        phone
-        course
-        department
-        year
-        f_name
-        dob
-        address
-        city
-        pincode
-        dp_path
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        UserNotifications {
-          nextToken
-          startedAt
-        }
-        Cards {
-          nextToken
-          startedAt
-        }
-        Transactions {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt

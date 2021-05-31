@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 $body-font-family: 'Montserrat', sans-serif;
+$material-light: (
+        'text':(
+                'primary': #205072,
+                'secondary': #2c6975
+        )
+);
 
 $shadow-key-umbra-opacity: rgba(86, 197, 150, 0.7);
 $shadow-key-penumbra-opacity: rgba(86, 197, 150, 0.7);

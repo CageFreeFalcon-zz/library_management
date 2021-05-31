@@ -1,4 +1,5 @@
-import "@fortawesome/fontawesome-free/css/all.css";
+// import "@fortawesome/fontawesome-free/css/all.css";
+import "@mdi/font/css/materialdesignicons.css";
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
 import portrait from "../assets/icons/portrait";
@@ -9,7 +10,7 @@ const MY_ICONS = {
   // cancel: "...",
   // close: "...",
   // delete: "...",
-  clear: "fas fa-times",
+  // clear: "fas fa-times",
   // success: "...",
   // info: "...",
   // warning: "...",
@@ -27,7 +28,7 @@ const MY_ICONS = {
   // dropdown: "...",
   // radioOn: "...",
   // radioOff: "...",
-  edit: "fas fa-pen",
+  // edit: "fas fa-pen",
   // ratingEmpty: "...",
   // ratingFull: "...",
   // ratingHalf: "...",
@@ -60,7 +61,7 @@ export default new Vuetify({
     }
   },
   icons: {
-    iconfont: "fa",
+    iconfont: "mdi",
     values: MY_ICONS
   }
 });

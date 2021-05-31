@@ -5,11 +5,11 @@ export const onCreateUserNotification = /* GraphQL */ `
   subscription OnCreateUserNotification {
     onCreateUserNotification {
       id
-      userID
       title
       subtitle
       content
       img_path
+      userna
       _version
       _deleted
       _lastChangedAt
@@ -22,11 +22,11 @@ export const onUpdateUserNotification = /* GraphQL */ `
   subscription OnUpdateUserNotification {
     onUpdateUserNotification {
       id
-      userID
       title
       subtitle
       content
       img_path
+      userna
       _version
       _deleted
       _lastChangedAt
@@ -39,11 +39,11 @@ export const onDeleteUserNotification = /* GraphQL */ `
   subscription OnDeleteUserNotification {
     onDeleteUserNotification {
       id
-      userID
       title
       subtitle
       content
       img_path
+      userna
       _version
       _deleted
       _lastChangedAt
@@ -60,6 +60,7 @@ export const onCreateAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
+      data
       _version
       _deleted
       _lastChangedAt
@@ -76,6 +77,7 @@ export const onUpdateAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
+      data
       _version
       _deleted
       _lastChangedAt
@@ -92,6 +94,7 @@ export const onDeleteAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
+      data
       _version
       _deleted
       _lastChangedAt
@@ -122,7 +125,6 @@ export const onCreateBook = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -175,7 +177,6 @@ export const onUpdateBook = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -228,7 +229,6 @@ export const onDeleteBook = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -264,7 +264,6 @@ export const onCreateBookItem = /* GraphQL */ `
     onCreateBookItem {
       id
       price
-      format
       status
       added_on
       rackID
@@ -280,8 +279,8 @@ export const onCreateBookItem = /* GraphQL */ `
           issue_date
           due_date
           status
-          userID
           bookitemID
+          Username
           _version
           _deleted
           _lastChangedAt
@@ -299,7 +298,6 @@ export const onUpdateBookItem = /* GraphQL */ `
     onUpdateBookItem {
       id
       price
-      format
       status
       added_on
       rackID
@@ -315,8 +313,8 @@ export const onUpdateBookItem = /* GraphQL */ `
           issue_date
           due_date
           status
-          userID
           bookitemID
+          Username
           _version
           _deleted
           _lastChangedAt
@@ -334,7 +332,6 @@ export const onDeleteBookItem = /* GraphQL */ `
     onDeleteBookItem {
       id
       price
-      format
       status
       added_on
       rackID
@@ -350,8 +347,8 @@ export const onDeleteBookItem = /* GraphQL */ `
           issue_date
           due_date
           status
-          userID
           bookitemID
+          Username
           _version
           _deleted
           _lastChangedAt
@@ -380,7 +377,6 @@ export const onCreateRack = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -413,7 +409,6 @@ export const onUpdateRack = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -446,7 +441,6 @@ export const onDeleteRack = /* GraphQL */ `
         items {
           id
           price
-          format
           status
           added_on
           rackID
@@ -675,7 +669,7 @@ export const onCreateCard = /* GraphQL */ `
       img_path
       status
       issued_on
-      userID
+      username
       _version
       _deleted
       _lastChangedAt
@@ -692,7 +686,7 @@ export const onUpdateCard = /* GraphQL */ `
       img_path
       status
       issued_on
-      userID
+      username
       _version
       _deleted
       _lastChangedAt
@@ -709,7 +703,7 @@ export const onDeleteCard = /* GraphQL */ `
       img_path
       status
       issued_on
-      userID
+      username
       _version
       _deleted
       _lastChangedAt
@@ -725,8 +719,8 @@ export const onCreateTransaction = /* GraphQL */ `
       issue_date
       due_date
       status
-      userID
       bookitemID
+      Username
       _version
       _deleted
       _lastChangedAt
@@ -742,8 +736,8 @@ export const onUpdateTransaction = /* GraphQL */ `
       issue_date
       due_date
       status
-      userID
       bookitemID
+      Username
       _version
       _deleted
       _lastChangedAt
@@ -759,241 +753,13 @@ export const onDeleteTransaction = /* GraphQL */ `
       issue_date
       due_date
       status
-      userID
       bookitemID
+      Username
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
-      id
-      username
-      email
-      phone
-      course
-      department
-      year
-      f_name
-      dob
-      address
-      city
-      pincode
-      dp_path
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      UserNotifications {
-        items {
-          id
-          userID
-          title
-          subtitle
-          content
-          img_path
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Cards {
-        items {
-          id
-          card_number
-          img_path
-          status
-          issued_on
-          userID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Transactions {
-        items {
-          id
-          issue_date
-          due_date
-          status
-          userID
-          bookitemID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
-      id
-      username
-      email
-      phone
-      course
-      department
-      year
-      f_name
-      dob
-      address
-      city
-      pincode
-      dp_path
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      UserNotifications {
-        items {
-          id
-          userID
-          title
-          subtitle
-          content
-          img_path
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Cards {
-        items {
-          id
-          card_number
-          img_path
-          status
-          issued_on
-          userID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Transactions {
-        items {
-          id
-          issue_date
-          due_date
-          status
-          userID
-          bookitemID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
-      id
-      username
-      email
-      phone
-      course
-      department
-      year
-      f_name
-      dob
-      address
-      city
-      pincode
-      dp_path
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      UserNotifications {
-        items {
-          id
-          userID
-          title
-          subtitle
-          content
-          img_path
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Cards {
-        items {
-          id
-          card_number
-          img_path
-          status
-          issued_on
-          userID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      Transactions {
-        items {
-          id
-          issue_date
-          due_date
-          status
-          userID
-          bookitemID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
     }
   }
 `;
