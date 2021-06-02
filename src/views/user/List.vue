@@ -54,7 +54,7 @@
                 </v-btn>
               </template>
 
-              <v-menu bottom left rounded="lg">
+              <v-menu bottom left rounded="lg" class="d-inline">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn text icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -142,7 +142,7 @@ export default {
           type: "get",
           path: "/listUsers",
           params: {
-            filter: "name ^= \"" + this.search + "\"",
+            filter: 'name ^= "' + this.search + '"',
             token: this.token
           }
         });

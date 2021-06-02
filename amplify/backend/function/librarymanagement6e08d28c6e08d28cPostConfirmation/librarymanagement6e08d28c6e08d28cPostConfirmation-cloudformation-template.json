@@ -93,9 +93,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "GROUP": {
-              "Ref": "GROUP"
-            }
+            "GROUP": "requests"
           }
         },
         "Role": {

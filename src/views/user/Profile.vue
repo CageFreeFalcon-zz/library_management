@@ -8,9 +8,45 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="auto" order-md="2">
-          <v-avatar rounded size="200" class="ma-auto d-block">
-            <v-img :src="dp" />
-          </v-avatar>
+          <v-row>
+            <v-col cols="12" sm="auto" md="12">
+              <v-avatar rounded size="200" class="ma-auto d-block">
+                <v-img :src="dp" />
+              </v-avatar>
+            </v-col>
+            <v-col cols="12" sm="auto" md="12" class="d-flex flex-column">
+              <v-btn
+                color="secondary"
+                class="mb-3"
+                rounded
+                :to="{ path: '/books/issue', query: { u: this.user.sub } }"
+                v-if="usergroups['students']"
+              >
+                <v-icon left>mdi-account</v-icon>
+                Issue Book
+              </v-btn>
+              <v-btn
+                color="success"
+                class="mb-3"
+                rounded
+                @click="verifyRequest"
+                v-if="usergroups['requests']"
+              >
+                <v-icon left>mdi-account-check</v-icon>
+                Verify
+              </v-btn>
+              <v-btn
+                color="error"
+                class=""
+                rounded
+                @click="cancelRequest"
+                v-if="usergroups['requests']"
+              >
+                <v-icon left>mdi-account-cancel</v-icon>
+                Cancel
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col
           class="highlight_data flex-md-grow-1"
@@ -24,14 +60,14 @@
             <v-icon color="secondary" left>mdi-email</v-icon>
             {{ user.email }}
             <v-icon color="info" v-if="user.email_verified === 'true'"
-            >mdi-check-decagram
+              >mdi-check-decagram
             </v-icon>
           </h4>
           <h4 class="phone mt-1">
             <v-icon color="secondary" left>mdi-phone</v-icon>
             {{ user.phone_number }}
             <v-icon color="info" v-if="user.phone_number_verified === 'true'"
-            >mdi-check-decagram
+              >mdi-check-decagram
             </v-icon>
           </h4>
           <div class="groups mt-1">
@@ -85,14 +121,17 @@
                   <v-list-item-title>Students</v-list-item-title>
                 </v-list-item>
                 <v-list-item
-                  v-if="!usergroups['requested']"
-                  @click="addUserToGroup('requested')"
+                  v-if="!usergroups['requests']"
+                  @click="addUserToGroup('requests')"
                 >
                   <v-list-item-title>Requests</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
           </div>
+          <v-sheet rounded max-width="470" elevation="5" class="mt-2">
+            <v-img :src="card"></v-img>
+          </v-sheet>
         </v-col>
       </v-row>
       <v-row>
@@ -152,6 +191,7 @@
 import { Storage } from "aws-amplify";
 import { mapActions } from "vuex";
 import userData from "@/mixins/userFields";
+import router from "../../router";
 
 export default {
   name: "profile",
@@ -181,6 +221,7 @@ export default {
         UserLastModifiedDate: ""
       },
       dp: undefined,
+      card: undefined,
       usergroups: {}
     };
   },
@@ -226,6 +267,40 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    async verifyRequest() {
+      try {
+        await this.adminQueries({
+          type: "post",
+          path: "/verifyUser",
+          params: {
+            username: this.user.sub
+          }
+        });
+        console.log("verified");
+        this.usergroups["requests"] = false;
+        this.usergroups["students"] = true;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async cancelRequest() {
+      try {
+        await this.adminQueries({
+          type: "post",
+          path: "/removeUserFromGroup",
+          params: {
+            username: this.user.sub,
+            groupname: "requests"
+          }
+        });
+        this.usergroups["requests"] = false;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    issueBook() {
+      router.push({ path: "/books/issue", query: { u: this.user.sub } });
     }
   },
   async mounted() {
@@ -244,6 +319,7 @@ export default {
       this.user = this.mapUserAttributes(user);
       this.usergroups = this.mapGroups(Groups);
       this.dp = await Storage.get(this.user.picture);
+      this.card = await Storage.get("card/" + this.user.sub + ".png");
     } catch (e) {
       console.log(e);
     }

@@ -21,12 +21,12 @@
       "function": {
         "AdminQueries05141c64": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
-          "s3Key": "amplify-builds/AdminQueries05141c64-49476a41775a2b322f2b-build.zip"
+          "s3Key": "amplify-builds/AdminQueries05141c64-2b573631476341773967-build.zip"
         },
         "librarymanagement6e08d28c6e08d28cPostConfirmation": {
           "GROUP": "requested",
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
-          "s3Key": "amplify-builds/librarymanagement6e08d28c6e08d28cPostConfirmation-6e5162787544556a6155-build.zip"
+          "s3Key": "amplify-builds/librarymanagement6e08d28c6e08d28cPostConfirmation-673939746737655a7139-build.zip"
         },
         "adminqueriesmodules": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
@@ -42,7 +42,7 @@
         },
         "CreateLC": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
-          "s3Key": "amplify-builds/CreateLC-424f2f31735051467363-build.zip"
+          "s3Key": "amplify-builds/CreateLC-3677582f772f32566b64-build.zip"
         },
         "qrCodeModule": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
@@ -64,15 +64,7 @@
                   "type": "private"
                 }
               ],
-              "hash": "DS1P56lN+8IA22MvNA0t9bl617GReg0ph/5nRuikQ7M="
-            },
-            "2": {
-              "permissions": [
-                {
-                  "type": "private"
-                }
-              ],
-              "hash": "wcaN5XM9Zi+08LBlbnByqJZWSVDZ9XA34jj8kWEebcE="
+              "hash": "mfTKV71PU6xp/F4jNbVaaB/eFjTPQ4hD0KLaVNt5kM0="
             }
           }
         },
@@ -120,7 +112,7 @@
                   "type": "private"
                 }
               ],
-              "hash": "Mu3sh6wKJTYPEd1kJiVtvYRes7Q9AIQIG5Xq2TA0TWI="
+              "hash": "Yra2LVvV8ISBOB5vCDTfXpBuZcRNkw+1Wwgf7IqtTjo="
             }
           }
         },
@@ -132,7 +124,7 @@
                   "type": "private"
                 }
               ],
-              "hash": "U4Lwrb3T18q3j1n04NfgDrok8fQlhvtRrHbjnkmNPHg="
+              "hash": "G1MWtQFwd0u+a/i+6tg+pG1sKENxeWS7vL8TvRMxEyk="
             }
           }
         }

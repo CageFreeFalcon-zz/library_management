@@ -1,7 +1,7 @@
 /* eslint-disable-line */
 const aws = require("aws-sdk");
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider(
     { apiVersion: "2016-04-18" }
   );

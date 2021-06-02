@@ -6,7 +6,7 @@
   >
     <v-container fluid>
       <v-row>
-        <v-col cols="4" offset="1" class="py-16">
+        <v-col cols="12" md="4" offset-md="1" class="my-16">
           <v-img :src="logo" max-width="350px" class="mx-auto mb-10"></v-img>
           <component :is="getAuthState" />
         </v-col>

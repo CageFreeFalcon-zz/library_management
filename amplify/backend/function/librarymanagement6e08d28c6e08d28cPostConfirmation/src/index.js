@@ -11,4 +11,5 @@ exports.handler = (event, context, callback) => {
     const { handler } = modules[i];
     handler(event, context, callback);
   }
+  callback(null, event);
 };

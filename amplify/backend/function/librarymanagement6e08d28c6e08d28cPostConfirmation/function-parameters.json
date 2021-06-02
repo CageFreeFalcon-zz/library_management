@@ -13,6 +13,6 @@
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "librarymanagement6e08d28c6e08d28cPostConfirmation",
   "skipEdit": true,
-  "GROUP": "requested",
+  "GROUP": "requests",
   "enableCors": false
 }
