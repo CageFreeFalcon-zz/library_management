@@ -1,19 +1,20 @@
 <template>
   <MainBackground>
     <v-container :style="cssVars">
-      <v-row class="d-print-none mdi-printer-search">
+      <v-row class="d-print-none">
         <v-col>
           <h1>Label Layout</h1>
         </v-col>
-        <v-col>
+        <v-col class="pb-0 pt-6">
           <v-slider
             v-model="zoom"
-            append-icon="fas fa-search-plus"
-            prepend-icon="fas fa-search-minus"
+            append-icon="mdi-magnify-plus-outline"
+            prepend-icon="mdi-magnify-minus-outline"
             min="0"
             max="3"
             step="0.1"
-            thumb-label
+            :thumb-label="below_md"
+            hide-details
             @click:append="() => (this.zoom += 0.1)"
             @click:prepend="() => (this.zoom -= 0.1)"
           />
@@ -206,6 +207,9 @@ export default {
           this.zoom
         )
       };
+    },
+    below_md() {
+      return this.$vuetify.breakpoint.mdAndDown;
     }
   },
   beforeMount() {

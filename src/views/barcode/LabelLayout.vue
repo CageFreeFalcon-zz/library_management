@@ -2,7 +2,7 @@
   <MainBackground>
     <v-container>
       <h1>Label Layout</h1>
-      <v-row justify="center">
+      <v-row justify="center" class="mt-4">
         <v-card
           :width="
             convertToPixel(this.label.width.length, this.label.width.unit)
@@ -36,14 +36,14 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-card>
             <v-card-text>
               <h4>Zoom</h4>
               <v-slider
                 v-model="scale_rate"
-                append-icon="fas fa-search-plus"
-                prepend-icon="fas fa-search-minus"
+                append-icon="mdi-magnify-plus-outline"
+                prepend-icon="mdi-magnify-minus-outline"
                 min="1"
                 max="3"
                 step="0.1"
@@ -58,14 +58,14 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-card>
             <v-card-text>
               <h4>Barcode Width</h4>
               <v-slider
                 v-model="barcode.width"
-                append-icon="fas fa-plus"
-                prepend-icon="fas fa-minus"
+                append-icon="mdi-plus-circle-outline"
+                prepend-icon="mdi-minus-circle-outline"
                 min="1"
                 max="8"
                 step="0.1"
@@ -75,14 +75,14 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-card>
             <v-card-text>
               <h4>Barcode Height</h4>
               <v-slider
                 v-model="barcode.height"
-                append-icon="fas fa-plus"
-                prepend-icon="fas fa-minus"
+                append-icon="mdi-plus-circle-outline"
+                prepend-icon="mdi-minus-circle-outline"
                 min="1"
                 max="100"
                 @click:append="() => this.barcode.height++"
@@ -91,14 +91,14 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-card>
             <v-card-text>
               <h4>Margin Top</h4>
               <v-slider
                 v-model="barcode.marginTop"
-                append-icon="fas fa-plus"
-                prepend-icon="fas fa-minus"
+                append-icon="mdi-plus-circle-outline"
+                prepend-icon="mdi-minus-circle-outline"
                 min="0"
                 max="20"
                 @click:append="() => this.barcode.marginTop++"
@@ -107,14 +107,14 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-card>
             <v-card-text>
               <h4>Text Top Margin</h4>
               <v-slider
                 v-model="barcode.textMargin"
-                append-icon="fas fa-plus"
-                prepend-icon="fas fa-minus"
+                append-icon="mdi-plus-circle-outline"
+                prepend-icon="mdi-minus-circle-outline"
                 min="0"
                 max="20"
                 @click:append="() => this.barcode.textMargin++"
@@ -123,14 +123,14 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-card>
             <v-card-text>
               <h4>Font Size</h4>
               <v-slider
                 v-model="barcode.fontSize"
-                append-icon="fas fa-plus"
-                prepend-icon="fas fa-minus"
+                append-icon="mdi-plus-circle-outline"
+                prepend-icon="mdi-minus-circle-outline"
                 min="1"
                 max="30"
                 thumb-label
@@ -140,14 +140,15 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="auto" class="flex-grow-1">
           <v-checkbox
+            hide-details
             class="mt-0 mb-3"
             v-model="barcode.showText"
             label="Show Barcode value at the bottom"
           />
         </v-col>
-        <v-col class="flex-grow-0">
+        <v-col cols="12" sm="auto" class="justify-end">
           <v-btn color="primary" @click="showPreview">Print Preview</v-btn>
         </v-col>
       </v-row>

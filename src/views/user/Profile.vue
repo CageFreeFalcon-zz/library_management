@@ -2,11 +2,6 @@
   <MainBackground>
     <v-container>
       <v-row>
-        <v-col>
-          <h1>User Profile</h1>
-        </v-col>
-      </v-row>
-      <v-row>
         <v-col cols="12" md="auto" order-md="2">
           <v-row>
             <v-col cols="12" sm="auto" md="12">
