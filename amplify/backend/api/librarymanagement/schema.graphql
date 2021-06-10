@@ -1,22 +1,28 @@
-type UserNotification @model @auth(rules: [{allow: public}]) {
+type UserNotification @model
+@auth(rules: [{allow: public}])
+@key(name: "byUsername", fields: ["Username"]) {
   id: ID!
-  title: String
+  title: String!
   subtitle: String
-  content: AWSJSON
-  img_path: AWSURL
-  userna: String
+  content: String!
+  link: AWSURL!
+  username: String!
+  status: Notification_Status
 }
 
-type AdminNotification @model @auth(rules: [{allow: public}]) {
+type AdminNotification @model
+@auth(rules: [{allow: public}]) {
   id: ID!
-  type: String
-  title: String
+  title: String!
   subtitle: String
-  content: String
-  data: AWSJSON
+  content: String!
+  link: AWSURL!
+  status: Notification_Status
 }
 
-type Book @model @auth(rules: [{allow: public}]) {
+type Book @model
+@searchable
+@auth(rules: [{allow: public}]) {
   id: ID!
   isbn: String!
   title: String!
@@ -31,55 +37,62 @@ type Book @model @auth(rules: [{allow: public}]) {
   Authors: [BookAuthor] @connection(keyName: "byBook", fields: ["id"])
 }
 
-type BookItem @model @auth(rules: [{allow: public}]) @key(name: "byRack", fields: ["rackID"]) @key(name: "byBook", fields: ["bookID"]) {
+type BookItem @model
+@auth(rules: [{allow: public}])
+@key(name: "byRack", fields: ["rackID"])
+@key(name: "byBook", fields: ["bookID"]) {
   id: ID!
-  price: Int!
   status: Book_Status!
-  added_on: AWSDate!
-  rackID: ID!
   Transactions: [Transaction] @connection(keyName: "byBookItem", fields: ["id"])
+  rackID: ID!
   bookID: ID!
 }
 
-type Rack @model @auth(rules: [{allow: public}]) {
+type Rack @model
+@auth(rules: [{allow: public}]) {
   id: ID!
   number: String!
   location: String!
-  recently_used: Boolean
   BookItems: [BookItem] @connection(keyName: "byRack", fields: ["id"])
 }
 
-type Author @model @auth(rules: [{allow: public}]) {
+type Author @model
+@auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   description: String
   books: [BookAuthor] @connection(keyName: "byAuthor", fields: ["id"])
 }
 
-type Barcode @model @auth(rules: [{allow: public}]) {
+type Barcode @model
+@auth(rules: [{allow: public}]) {
   id: ID!
   code: String!
-  status: Barcode_status!
-  created_at: AWSDate!
+  status: Barcode_Status!
   Book: Book @connection
 }
 
-type Card @model @auth(rules: [{allow: public}]) {
+type Transaction @model
+@auth(rules: [{allow: public}])
+@key(name: "byUsername", fields: ["Username"])
+@key(name: "byBookItem", fields: ["bookitemID"]) {
   id: ID!
-  card_number: Int!
-  img_path: AWSURL!
-  status: Card_Status!
-  issued_on: AWSDate!
-  username: String
+  Username: String!
+  due_date: AWSDate!
+  fine: Int
+  status: Transaction_Status!
+  bookitemID: ID!
 }
 
-type Transaction @model @auth(rules: [{allow: public}]) @key(name: "byBookItem", fields: ["bookitemID"]) {
+type BookAuthor @model
+@auth(rules: [{allow: public}, {allow: public}])
+@key(name: "byBook", fields: ["bookID", "authorID"])
+@key(name: "byAuthor", fields: ["authorID", "bookID"]) {
   id: ID!
-  issue_date: AWSDate!
-  due_date: AWSDate!
-  status: String!
-  bookitemID: ID!
-  Username: String
+  bookID: ID!
+  authorID: ID!
+  book: Book! @connection(fields: ["bookID"])
+  author: Author! @connection(fields: ["authorID"])
 }
 
 enum Book_Status {
@@ -88,21 +101,18 @@ enum Book_Status {
   LOST
 }
 
-enum Card_Status {
-  ISSUED
-  DEPRICATED
-}
-
-enum Barcode_status {
+enum Barcode_Status {
   USED
   UNUSED
 }
 
-type BookAuthor @model(queries: null) @key(name: "byBook", fields: ["bookID", "authorID"]) @key(name: "byAuthor", fields: ["authorID", "bookID"]) @auth(rules: [{allow: public}, {allow: public}]) {
-  id: ID!
-  bookID: ID!
-  authorID: ID!
-  book: Book! @connection(fields: ["bookID"])
-  author: Author! @connection(fields: ["authorID"])
+enum Notification_Status {
+  READ
+  UNREAD
+}
+
+enum Transaction_Status {
+  ISSUED
+  RETURNED
 }
  

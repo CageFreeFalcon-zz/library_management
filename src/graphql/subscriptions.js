@@ -661,57 +661,6 @@ export const onDeleteBarcode = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCard = /* GraphQL */ `
-  subscription OnCreateCard {
-    onCreateCard {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCard = /* GraphQL */ `
-  subscription OnUpdateCard {
-    onUpdateCard {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCard = /* GraphQL */ `
-  subscription OnDeleteCard {
-    onDeleteCard {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateTransaction = /* GraphQL */ `
   subscription OnCreateTransaction {
     onCreateTransaction {

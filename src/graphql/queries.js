@@ -155,43 +155,6 @@ export const syncAdminNotifications = /* GraphQL */ `
     }
   }
 `;
-export const listBooks = /* GraphQL */ `
-  query ListBooks(
-    $filter: ModelBookFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBooks(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        isbn
-        title
-        subject
-        publisher
-        language
-        edition
-        no_of_pages
-        copies_present
-        copies_issued
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getBook = /* GraphQL */ `
   query GetBook($id: ID!) {
     getBook(id: $id) {
@@ -241,6 +204,88 @@ export const getBook = /* GraphQL */ `
         nextToken
         startedAt
       }
+    }
+  }
+`;
+export const listBooks = /* GraphQL */ `
+  query ListBooks(
+    $filter: ModelBookFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBooks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        isbn
+        title
+        subject
+        publisher
+        language
+        edition
+        no_of_pages
+        copies_present
+        copies_issued
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+          startedAt
+        }
+        Authors {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const searchBooks = /* GraphQL */ `
+  query SearchBooks(
+    $filter: SearchableBookFilterInput
+    $sort: SearchableBookSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchBooks(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        isbn
+        title
+        subject
+        publisher
+        language
+        edition
+        no_of_pages
+        copies_present
+        copies_issued
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+          startedAt
+        }
+        Authors {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      total
     }
   }
 `;
@@ -477,32 +522,6 @@ export const syncRacks = /* GraphQL */ `
     }
   }
 `;
-export const listAuthors = /* GraphQL */ `
-  query ListAuthors(
-    $filter: ModelAuthorFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAuthors(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        books {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getAuthor = /* GraphQL */ `
   query GetAuthor($id: ID!) {
     getAuthor(id: $id) {
@@ -528,6 +547,32 @@ export const getAuthor = /* GraphQL */ `
         nextToken
         startedAt
       }
+    }
+  }
+`;
+export const listAuthors = /* GraphQL */ `
+  query ListAuthors(
+    $filter: ModelAuthorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAuthors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        books {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -683,79 +728,6 @@ export const syncBarcodes = /* GraphQL */ `
           createdAt
           updatedAt
         }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getCard = /* GraphQL */ `
-  query GetCard($id: ID!) {
-    getCard(id: $id) {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCards = /* GraphQL */ `
-  query ListCards(
-    $filter: ModelCardFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        card_number
-        img_path
-        status
-        issued_on
-        username
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncCards = /* GraphQL */ `
-  query SyncCards(
-    $filter: ModelCardFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCards(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        card_number
-        img_path
-        status
-        issued_on
-        username
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       nextToken
       startedAt

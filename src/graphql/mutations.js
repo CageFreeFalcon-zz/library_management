@@ -724,66 +724,6 @@ export const deleteBarcode = /* GraphQL */ `
     }
   }
 `;
-export const createCard = /* GraphQL */ `
-  mutation CreateCard(
-    $input: CreateCardInput!
-    $condition: ModelCardConditionInput
-  ) {
-    createCard(input: $input, condition: $condition) {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateCard = /* GraphQL */ `
-  mutation UpdateCard(
-    $input: UpdateCardInput!
-    $condition: ModelCardConditionInput
-  ) {
-    updateCard(input: $input, condition: $condition) {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteCard = /* GraphQL */ `
-  mutation DeleteCard(
-    $input: DeleteCardInput!
-    $condition: ModelCardConditionInput
-  ) {
-    deleteCard(input: $input, condition: $condition) {
-      id
-      card_number
-      img_path
-      status
-      issued_on
-      username
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const createTransaction = /* GraphQL */ `
   mutation CreateTransaction(
     $input: CreateTransactionInput!
