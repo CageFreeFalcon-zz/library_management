@@ -2,20 +2,25 @@
 import { initSchema } from "@aws-amplify/datastore";
 import { schema } from "./schema";
 
+const NotificationStatus = {
+  READ: "READ",
+  UNREAD: "UNREAD"
+};
+
 const BookStatus = {
   ISSUED: "ISSUED",
   NOTISSUED: "NOTISSUED",
   LOST: "LOST"
 };
 
+const TransactionStatus = {
+  ISSUED: "ISSUED",
+  RETURNED: "RETURNED"
+};
+
 const BarcodeStatus = {
   USED: "USED",
   UNUSED: "UNUSED"
-};
-
-const CardStatus = {
-  ISSUED: "ISSUED",
-  DEPRICATED: "DEPRICATED"
 };
 
 const {
@@ -27,8 +32,7 @@ const {
   BookAuthor,
   Author,
   Rack,
-  Barcode,
-  Card
+  Barcode
 } = initSchema(schema);
 
 export {
@@ -41,8 +45,8 @@ export {
   Author,
   Rack,
   Barcode,
-  Card,
+  NotificationStatus,
   BookStatus,
-  BarcodeStatus,
-  CardStatus
+  TransactionStatus,
+  BarcodeStatus
 };

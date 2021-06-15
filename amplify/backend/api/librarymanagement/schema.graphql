@@ -1,6 +1,6 @@
 type UserNotification @model
 @auth(rules: [{allow: public}])
-@key(name: "byUsername", fields: ["Username"]) {
+@key(name: "byUsername", fields: ["username"], queryField: "notificationByUser") {
   id: ID!
   title: String!
   subtitle: String
@@ -21,18 +21,16 @@ type AdminNotification @model
 }
 
 type Book @model
-@searchable
+@searchable(queries: { search: "searchBook" })
 @auth(rules: [{allow: public}]) {
   id: ID!
-  isbn: String!
   title: String!
   subject: String!
   publisher: String!
   language: String!
   edition: String!
-  no_of_pages: Int
-  copies_present: Int!
-  copies_issued: Int!
+  copies_present: Int
+  copies_issued: Int
   BookItems: [BookItem] @connection(keyName: "byBook", fields: ["id"])
   Authors: [BookAuthor] @connection(keyName: "byBook", fields: ["id"])
 }
@@ -49,32 +47,32 @@ type BookItem @model
 }
 
 type Rack @model
+@searchable(queries: { search: "searchRack" })
 @auth(rules: [{allow: public}]) {
   id: ID!
-  number: String!
-  location: String!
+  name: String!
   BookItems: [BookItem] @connection(keyName: "byRack", fields: ["id"])
 }
 
 type Author @model
+@searchable(queries: { search: "searchAuthor" })
 @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
-  description: String
   books: [BookAuthor] @connection(keyName: "byAuthor", fields: ["id"])
 }
 
 type Barcode @model
 @auth(rules: [{allow: public}]) {
   id: ID!
-  code: String!
   status: Barcode_Status!
-  Book: Book @connection
+  bookItemID: ID
+  book: BookItem @connection(fields: ["bookItemID"])
 }
 
 type Transaction @model
 @auth(rules: [{allow: public}])
-@key(name: "byUsername", fields: ["Username"])
+@key(name: "byUsername", fields: ["Username"],  queryField: "transactionByUser")
 @key(name: "byBookItem", fields: ["bookitemID"]) {
   id: ID!
   Username: String!

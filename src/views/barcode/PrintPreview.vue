@@ -70,6 +70,7 @@
 
 <script>
 import VueBarcode from "vue-barcode";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PrintPreview",
@@ -136,6 +137,12 @@ export default {
     barcode: VueBarcode
   },
   methods: {
+    ...mapGetters([
+      "getLabelDimension",
+      "getPageProps",
+      "getPageMargin",
+      "getBarcodeProps"
+    ]),
     convertToPixel(len, unit = "in", scale = 1) {
       switch (unit) {
         case "in":
@@ -213,10 +220,10 @@ export default {
     }
   },
   beforeMount() {
-    this.barcode = this.$route.query.barcode;
-    this.page = this.$route.query.page;
-    this.label = this.$route.query.label;
-    this.margin = this.$route.query.margin;
+    this.barcode = this.getBarcodeProps();
+    this.page = this.getPageProps();
+    this.label = this.getLabelDimension();
+    this.margin = this.getPageMargin();
   }
 };
 </script>

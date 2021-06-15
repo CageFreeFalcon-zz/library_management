@@ -159,6 +159,7 @@
 <script>
 import VueBarcode from "vue-barcode";
 import router from "../../router";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Preview",
@@ -176,18 +177,6 @@ export default {
         textMargin: 0,
         showText: true
       },
-      page: {
-        size: "Custom",
-        orientation: "portrait",
-        width: {
-          length: 10,
-          unit: "in"
-        },
-        height: {
-          length: 10,
-          unit: "cm"
-        }
-      },
       label: {
         row: 3,
         col: 8,
@@ -201,30 +190,12 @@ export default {
           length: 10,
           unit: "cm"
         }
-      },
-      margin: {
-        linkVertical: true,
-        linkHorizontal: true,
-        top: {
-          length: 10,
-          unit: "cm"
-        },
-        bottom: {
-          length: 10,
-          unit: "cm"
-        },
-        left: {
-          length: 10,
-          unit: "cm"
-        },
-        right: {
-          length: 10,
-          unit: "cm"
-        }
       }
     };
   },
   methods: {
+    ...mapMutations(["setBarcodeProps"]),
+    ...mapGetters(["getLabelDimension"]),
     convertToPixel(len, unit = "in") {
       switch (unit) {
         case "in":
@@ -236,19 +207,12 @@ export default {
       }
     },
     showPreview() {
-      let config = {
-        barcode: this.barcode,
-        page: this.page,
-        margin: this.margin,
-        label: this.label
-      };
-      router.push({ path: "/barcode/preview", query: config });
+      this.setBarcodeProps(this.barcode);
+      router.push({ path: "/barcode/preview" });
     }
   },
   beforeMount() {
-    this.page = this.$route.query.page;
-    this.label = this.$route.query.label;
-    this.margin = this.$route.query.margin;
+    this.label = this.getLabelDimension();
   }
 };
 </script>

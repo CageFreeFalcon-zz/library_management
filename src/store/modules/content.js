@@ -1,9 +1,25 @@
-import { API, Auth } from "aws-amplify";
+import { API, Auth, DataStore } from "aws-amplify";
+import { BookItem } from "../../models";
 
 export default {
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    pageSize: {},
+    pageMargin: {},
+    labelDimension: {},
+    barcodeProps: {}
+  },
+  getters: {
+    getPageProps: state => state.pageSize,
+    getPageMargin: state => state.pageMargin,
+    getLabelDimension: state => state.labelDimension,
+    getBarcodeProps: state => state.barcodeProps
+  },
+  mutations: {
+    setPageProps: (state, payload) => (state.pageSize = payload),
+    setPageMargin: (state, payload) => (state.pageMargin = payload),
+    setLabelDimension: (state, payload) => (state.labelDimension = payload),
+    setBarcodeProps: (state, payload) => (state.barcodeProps = payload)
+  },
   actions: {
     async adminQueries(context, payload) {
       if (payload.type === "get") {
@@ -27,6 +43,14 @@ export default {
           }
         });
       }
+    },
+    // eslint-disable-next-line no-unused-vars
+    async addBooks(context, payload) {
+      DataStore.save(
+        new BookItem({
+          title: ""
+        })
+      );
     }
   }
 };

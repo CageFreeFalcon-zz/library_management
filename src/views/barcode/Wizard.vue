@@ -358,6 +358,7 @@
 
 <script>
 import router from "../../router";
+import { mapMutations } from "vuex";
 
 export default {
   name: "wizard",
@@ -415,6 +416,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setPageProps", "setPageMargin", "setLabelDimension"]),
     vertical(side, property) {
       if (this.margin.linkVertical) {
         if (side === "top" && property === "length") {
@@ -442,12 +444,10 @@ export default {
       }
     },
     configLabelLayout() {
-      let config = {
-        page: this.page,
-        label: this.label,
-        margin: this.margin
-      };
-      router.push({ path: "/barcode/layout", query: config });
+      this.setPageMargin(this.margin);
+      this.setLabelDimension(this.label);
+      this.setPageProps(this.page);
+      router.push({ path: "/barcode/layout" });
     },
     setPageSize() {
       if (this.page.size === "Letter") {

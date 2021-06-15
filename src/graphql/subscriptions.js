@@ -8,8 +8,9 @@ export const onCreateUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      img_path
-      userna
+      link
+      username
+      status
       _version
       _deleted
       _lastChangedAt
@@ -25,8 +26,9 @@ export const onUpdateUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      img_path
-      userna
+      link
+      username
+      status
       _version
       _deleted
       _lastChangedAt
@@ -42,8 +44,9 @@ export const onDeleteUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      img_path
-      userna
+      link
+      username
+      status
       _version
       _deleted
       _lastChangedAt
@@ -56,11 +59,11 @@ export const onCreateAdminNotification = /* GraphQL */ `
   subscription OnCreateAdminNotification {
     onCreateAdminNotification {
       id
-      type
       title
       subtitle
       content
-      data
+      link
+      status
       _version
       _deleted
       _lastChangedAt
@@ -73,11 +76,11 @@ export const onUpdateAdminNotification = /* GraphQL */ `
   subscription OnUpdateAdminNotification {
     onUpdateAdminNotification {
       id
-      type
       title
       subtitle
       content
-      data
+      link
+      status
       _version
       _deleted
       _lastChangedAt
@@ -90,11 +93,11 @@ export const onDeleteAdminNotification = /* GraphQL */ `
   subscription OnDeleteAdminNotification {
     onDeleteAdminNotification {
       id
-      type
       title
       subtitle
       content
-      data
+      link
+      status
       _version
       _deleted
       _lastChangedAt
@@ -113,7 +116,6 @@ export const onCreateBook = /* GraphQL */ `
       publisher
       language
       edition
-      no_of_pages
       copies_present
       copies_issued
       _version
@@ -124,9 +126,7 @@ export const onCreateBook = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -165,7 +165,6 @@ export const onUpdateBook = /* GraphQL */ `
       publisher
       language
       edition
-      no_of_pages
       copies_present
       copies_issued
       _version
@@ -176,9 +175,7 @@ export const onUpdateBook = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -217,7 +214,6 @@ export const onDeleteBook = /* GraphQL */ `
       publisher
       language
       edition
-      no_of_pages
       copies_present
       copies_issued
       _version
@@ -228,9 +224,7 @@ export const onDeleteBook = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -263,9 +257,7 @@ export const onCreateBookItem = /* GraphQL */ `
   subscription OnCreateBookItem {
     onCreateBookItem {
       id
-      price
       status
-      added_on
       rackID
       bookID
       _version
@@ -276,11 +268,11 @@ export const onCreateBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          issue_date
+          Username
           due_date
+          fine
           status
           bookitemID
-          Username
           _version
           _deleted
           _lastChangedAt
@@ -297,9 +289,7 @@ export const onUpdateBookItem = /* GraphQL */ `
   subscription OnUpdateBookItem {
     onUpdateBookItem {
       id
-      price
       status
-      added_on
       rackID
       bookID
       _version
@@ -310,11 +300,11 @@ export const onUpdateBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          issue_date
+          Username
           due_date
+          fine
           status
           bookitemID
-          Username
           _version
           _deleted
           _lastChangedAt
@@ -331,9 +321,7 @@ export const onDeleteBookItem = /* GraphQL */ `
   subscription OnDeleteBookItem {
     onDeleteBookItem {
       id
-      price
       status
-      added_on
       rackID
       bookID
       _version
@@ -344,11 +332,11 @@ export const onDeleteBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          issue_date
+          Username
           due_date
+          fine
           status
           bookitemID
-          Username
           _version
           _deleted
           _lastChangedAt
@@ -365,9 +353,8 @@ export const onCreateRack = /* GraphQL */ `
   subscription OnCreateRack {
     onCreateRack {
       id
-      number
+      code
       location
-      recently_used
       _version
       _deleted
       _lastChangedAt
@@ -376,9 +363,7 @@ export const onCreateRack = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -397,9 +382,8 @@ export const onUpdateRack = /* GraphQL */ `
   subscription OnUpdateRack {
     onUpdateRack {
       id
-      number
+      code
       location
-      recently_used
       _version
       _deleted
       _lastChangedAt
@@ -408,9 +392,7 @@ export const onUpdateRack = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -429,9 +411,8 @@ export const onDeleteRack = /* GraphQL */ `
   subscription OnDeleteRack {
     onDeleteRack {
       id
-      number
+      code
       location
-      recently_used
       _version
       _deleted
       _lastChangedAt
@@ -440,9 +421,7 @@ export const onDeleteRack = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -462,7 +441,6 @@ export const onCreateAuthor = /* GraphQL */ `
     onCreateAuthor {
       id
       name
-      description
       _version
       _deleted
       _lastChangedAt
@@ -490,7 +468,6 @@ export const onUpdateAuthor = /* GraphQL */ `
     onUpdateAuthor {
       id
       name
-      description
       _version
       _deleted
       _lastChangedAt
@@ -518,7 +495,6 @@ export const onDeleteAuthor = /* GraphQL */ `
     onDeleteAuthor {
       id
       name
-      description
       _version
       _deleted
       _lastChangedAt
@@ -547,33 +523,23 @@ export const onCreateBarcode = /* GraphQL */ `
       id
       code
       status
-      created_at
+      BookItemID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Book {
+      BookItem {
         id
-        isbn
-        title
-        subject
-        publisher
-        language
-        edition
-        no_of_pages
-        copies_present
-        copies_issued
+        status
+        rackID
+        bookID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
+        Transactions {
           nextToken
           startedAt
         }
@@ -587,33 +553,23 @@ export const onUpdateBarcode = /* GraphQL */ `
       id
       code
       status
-      created_at
+      BookItemID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Book {
+      BookItem {
         id
-        isbn
-        title
-        subject
-        publisher
-        language
-        edition
-        no_of_pages
-        copies_present
-        copies_issued
+        status
+        rackID
+        bookID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
+        Transactions {
           nextToken
           startedAt
         }
@@ -627,33 +583,23 @@ export const onDeleteBarcode = /* GraphQL */ `
       id
       code
       status
-      created_at
+      BookItemID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Book {
+      BookItem {
         id
-        isbn
-        title
-        subject
-        publisher
-        language
-        edition
-        no_of_pages
-        copies_present
-        copies_issued
+        status
+        rackID
+        bookID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
+        Transactions {
           nextToken
           startedAt
         }
@@ -665,11 +611,11 @@ export const onCreateTransaction = /* GraphQL */ `
   subscription OnCreateTransaction {
     onCreateTransaction {
       id
-      issue_date
+      Username
       due_date
+      fine
       status
       bookitemID
-      Username
       _version
       _deleted
       _lastChangedAt
@@ -682,11 +628,11 @@ export const onUpdateTransaction = /* GraphQL */ `
   subscription OnUpdateTransaction {
     onUpdateTransaction {
       id
-      issue_date
+      Username
       due_date
+      fine
       status
       bookitemID
-      Username
       _version
       _deleted
       _lastChangedAt
@@ -699,11 +645,11 @@ export const onDeleteTransaction = /* GraphQL */ `
   subscription OnDeleteTransaction {
     onDeleteTransaction {
       id
-      issue_date
+      Username
       due_date
+      fine
       status
       bookitemID
-      Username
       _version
       _deleted
       _lastChangedAt
@@ -731,7 +677,6 @@ export const onCreateBookAuthor = /* GraphQL */ `
         publisher
         language
         edition
-        no_of_pages
         copies_present
         copies_issued
         _version
@@ -751,7 +696,6 @@ export const onCreateBookAuthor = /* GraphQL */ `
       author {
         id
         name
-        description
         _version
         _deleted
         _lastChangedAt
@@ -784,7 +728,6 @@ export const onUpdateBookAuthor = /* GraphQL */ `
         publisher
         language
         edition
-        no_of_pages
         copies_present
         copies_issued
         _version
@@ -804,7 +747,6 @@ export const onUpdateBookAuthor = /* GraphQL */ `
       author {
         id
         name
-        description
         _version
         _deleted
         _lastChangedAt
@@ -837,7 +779,6 @@ export const onDeleteBookAuthor = /* GraphQL */ `
         publisher
         language
         edition
-        no_of_pages
         copies_present
         copies_issued
         _version
@@ -857,7 +798,6 @@ export const onDeleteBookAuthor = /* GraphQL */ `
       author {
         id
         name
-        description
         _version
         _deleted
         _lastChangedAt
