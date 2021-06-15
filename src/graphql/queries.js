@@ -8,8 +8,9 @@ export const getUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      img_path
-      userna
+      link
+      username
+      status
       _version
       _deleted
       _lastChangedAt
@@ -34,8 +35,9 @@ export const listUserNotifications = /* GraphQL */ `
         title
         subtitle
         content
-        img_path
-        userna
+        link
+        username
+        status
         _version
         _deleted
         _lastChangedAt
@@ -65,8 +67,9 @@ export const syncUserNotifications = /* GraphQL */ `
         title
         subtitle
         content
-        img_path
-        userna
+        link
+        username
+        status
         _version
         _deleted
         _lastChangedAt
@@ -82,11 +85,11 @@ export const getAdminNotification = /* GraphQL */ `
   query GetAdminNotification($id: ID!) {
     getAdminNotification(id: $id) {
       id
-      type
       title
       subtitle
       content
-      data
+      link
+      status
       _version
       _deleted
       _lastChangedAt
@@ -108,11 +111,11 @@ export const listAdminNotifications = /* GraphQL */ `
     ) {
       items {
         id
-        type
         title
         subtitle
         content
-        data
+        link
+        status
         _version
         _deleted
         _lastChangedAt
@@ -139,11 +142,11 @@ export const syncAdminNotifications = /* GraphQL */ `
     ) {
       items {
         id
-        type
         title
         subtitle
         content
-        data
+        link
+        status
         _version
         _deleted
         _lastChangedAt
@@ -165,7 +168,6 @@ export const getBook = /* GraphQL */ `
       publisher
       language
       edition
-      no_of_pages
       copies_present
       copies_issued
       _version
@@ -176,9 +178,7 @@ export const getBook = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -222,7 +222,6 @@ export const listBooks = /* GraphQL */ `
         publisher
         language
         edition
-        no_of_pages
         copies_present
         copies_issued
         _version
@@ -241,51 +240,6 @@ export const listBooks = /* GraphQL */ `
       }
       nextToken
       startedAt
-    }
-  }
-`;
-export const searchBooks = /* GraphQL */ `
-  query SearchBooks(
-    $filter: SearchableBookFilterInput
-    $sort: SearchableBookSortInput
-    $limit: Int
-    $nextToken: String
-    $from: Int
-  ) {
-    searchBooks(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
-      items {
-        id
-        isbn
-        title
-        subject
-        publisher
-        language
-        edition
-        no_of_pages
-        copies_present
-        copies_issued
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      total
     }
   }
 `;
@@ -310,7 +264,6 @@ export const syncBooks = /* GraphQL */ `
         publisher
         language
         edition
-        no_of_pages
         copies_present
         copies_issued
         _version
@@ -336,9 +289,7 @@ export const getBookItem = /* GraphQL */ `
   query GetBookItem($id: ID!) {
     getBookItem(id: $id) {
       id
-      price
       status
-      added_on
       rackID
       bookID
       _version
@@ -349,11 +300,11 @@ export const getBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          issue_date
+          Username
           due_date
+          fine
           status
           bookitemID
-          Username
           _version
           _deleted
           _lastChangedAt
@@ -375,9 +326,7 @@ export const listBookItems = /* GraphQL */ `
     listBookItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        price
         status
-        added_on
         rackID
         bookID
         _version
@@ -410,9 +359,7 @@ export const syncBookItems = /* GraphQL */ `
     ) {
       items {
         id
-        price
         status
-        added_on
         rackID
         bookID
         _version
@@ -434,9 +381,8 @@ export const getRack = /* GraphQL */ `
   query GetRack($id: ID!) {
     getRack(id: $id) {
       id
-      number
+      code
       location
-      recently_used
       _version
       _deleted
       _lastChangedAt
@@ -445,9 +391,7 @@ export const getRack = /* GraphQL */ `
       BookItems {
         items {
           id
-          price
           status
-          added_on
           rackID
           bookID
           _version
@@ -471,9 +415,8 @@ export const listRacks = /* GraphQL */ `
     listRacks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        number
+        code
         location
-        recently_used
         _version
         _deleted
         _lastChangedAt
@@ -504,9 +447,8 @@ export const syncRacks = /* GraphQL */ `
     ) {
       items {
         id
-        number
+        code
         location
-        recently_used
         _version
         _deleted
         _lastChangedAt
@@ -527,7 +469,6 @@ export const getAuthor = /* GraphQL */ `
     getAuthor(id: $id) {
       id
       name
-      description
       _version
       _deleted
       _lastChangedAt
@@ -560,7 +501,6 @@ export const listAuthors = /* GraphQL */ `
       items {
         id
         name
-        description
         _version
         _deleted
         _lastChangedAt
@@ -592,7 +532,6 @@ export const syncAuthors = /* GraphQL */ `
       items {
         id
         name
-        description
         _version
         _deleted
         _lastChangedAt
@@ -614,33 +553,23 @@ export const getBarcode = /* GraphQL */ `
       id
       code
       status
-      created_at
+      BookItemID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Book {
+      BookItem {
         id
-        isbn
-        title
-        subject
-        publisher
-        language
-        edition
-        no_of_pages
-        copies_present
-        copies_issued
+        status
+        rackID
+        bookID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
+        Transactions {
           nextToken
           startedAt
         }
@@ -659,23 +588,17 @@ export const listBarcodes = /* GraphQL */ `
         id
         code
         status
-        created_at
+        BookItemID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Book {
+        BookItem {
           id
-          isbn
-          title
-          subject
-          publisher
-          language
-          edition
-          no_of_pages
-          copies_present
-          copies_issued
+          status
+          rackID
+          bookID
           _version
           _deleted
           _lastChangedAt
@@ -705,23 +628,17 @@ export const syncBarcodes = /* GraphQL */ `
         id
         code
         status
-        created_at
+        BookItemID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Book {
+        BookItem {
           id
-          isbn
-          title
-          subject
-          publisher
-          language
-          edition
-          no_of_pages
-          copies_present
-          copies_issued
+          status
+          rackID
+          bookID
           _version
           _deleted
           _lastChangedAt
@@ -738,11 +655,11 @@ export const getTransaction = /* GraphQL */ `
   query GetTransaction($id: ID!) {
     getTransaction(id: $id) {
       id
-      issue_date
+      Username
       due_date
+      fine
       status
       bookitemID
-      Username
       _version
       _deleted
       _lastChangedAt
@@ -760,11 +677,11 @@ export const listTransactions = /* GraphQL */ `
     listTransactions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        issue_date
+        Username
         due_date
+        fine
         status
         bookitemID
-        Username
         _version
         _deleted
         _lastChangedAt
@@ -791,16 +708,114 @@ export const syncTransactions = /* GraphQL */ `
     ) {
       items {
         id
-        issue_date
+        Username
         due_date
+        fine
         status
         bookitemID
-        Username
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getBookAuthor = /* GraphQL */ `
+  query GetBookAuthor($id: ID!) {
+    getBookAuthor(id: $id) {
+      id
+      bookID
+      authorID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      book {
+        id
+        isbn
+        title
+        subject
+        publisher
+        language
+        edition
+        copies_present
+        copies_issued
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+          startedAt
+        }
+        Authors {
+          nextToken
+          startedAt
+        }
+      }
+      author {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        books {
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const listBookAuthors = /* GraphQL */ `
+  query ListBookAuthors(
+    $filter: ModelBookAuthorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBookAuthors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        bookID
+        authorID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        book {
+          id
+          isbn
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        author {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       nextToken
       startedAt
@@ -837,7 +852,6 @@ export const syncBookAuthors = /* GraphQL */ `
           publisher
           language
           edition
-          no_of_pages
           copies_present
           copies_issued
           _version
@@ -849,7 +863,6 @@ export const syncBookAuthors = /* GraphQL */ `
         author {
           id
           name
-          description
           _version
           _deleted
           _lastChangedAt

@@ -14,7 +14,7 @@ export const schema = {
           name: "title",
           isArray: false,
           type: "String",
-          isRequired: false,
+          isRequired: true,
           attributes: []
         },
         subtitle: {
@@ -27,21 +27,30 @@ export const schema = {
         content: {
           name: "content",
           isArray: false,
-          type: "AWSJSON",
-          isRequired: false,
+          type: "String",
+          isRequired: true,
           attributes: []
         },
-        img_path: {
-          name: "img_path",
+        link: {
+          name: "link",
           isArray: false,
           type: "AWSURL",
-          isRequired: false,
+          isRequired: true,
           attributes: []
         },
-        userna: {
-          name: "userna",
+        username: {
+          name: "username",
           isArray: false,
           type: "String",
+          isRequired: true,
+          attributes: []
+        },
+        status: {
+          name: "status",
+          isArray: false,
+          type: {
+            enum: "NotificationStatus"
+          },
           isRequired: false,
           attributes: []
         }
@@ -52,6 +61,14 @@ export const schema = {
         {
           type: "model",
           properties: {}
+        },
+        {
+          type: "key",
+          properties: {
+            name: "byUsername",
+            fields: ["username"],
+            queryField: "notificationByUser"
+          }
         },
         {
           type: "auth",
@@ -76,18 +93,11 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        type: {
-          name: "type",
-          isArray: false,
-          type: "String",
-          isRequired: false,
-          attributes: []
-        },
         title: {
           name: "title",
           isArray: false,
           type: "String",
-          isRequired: false,
+          isRequired: true,
           attributes: []
         },
         subtitle: {
@@ -101,13 +111,22 @@ export const schema = {
           name: "content",
           isArray: false,
           type: "String",
-          isRequired: false,
+          isRequired: true,
           attributes: []
         },
-        data: {
-          name: "data",
+        link: {
+          name: "link",
           isArray: false,
-          type: "AWSJSON",
+          type: "AWSURL",
+          isRequired: true,
+          attributes: []
+        },
+        status: {
+          name: "status",
+          isArray: false,
+          type: {
+            enum: "NotificationStatus"
+          },
           isRequired: false,
           attributes: []
         }
@@ -184,25 +203,18 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        no_of_pages: {
-          name: "no_of_pages",
-          isArray: false,
-          type: "Int",
-          isRequired: false,
-          attributes: []
-        },
         copies_present: {
           name: "copies_present",
           isArray: false,
           type: "Int",
-          isRequired: true,
+          isRequired: false,
           attributes: []
         },
         copies_issued: {
           name: "copies_issued",
           isArray: false,
           type: "Int",
-          isRequired: true,
+          isRequired: false,
           attributes: []
         },
         BookItems: {
@@ -242,6 +254,14 @@ export const schema = {
           properties: {}
         },
         {
+          type: "searchable",
+          properties: {
+            queries: {
+              search: "searchBook"
+            }
+          }
+        },
+        {
           type: "auth",
           properties: {
             rules: [
@@ -264,33 +284,12 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        price: {
-          name: "price",
-          isArray: false,
-          type: "Int",
-          isRequired: true,
-          attributes: []
-        },
         status: {
           name: "status",
           isArray: false,
           type: {
             enum: "BookStatus"
           },
-          isRequired: true,
-          attributes: []
-        },
-        added_on: {
-          name: "added_on",
-          isArray: false,
-          type: "AWSDate",
-          isRequired: true,
-          attributes: []
-        },
-        rackID: {
-          name: "rackID",
-          isArray: false,
-          type: "ID",
           isRequired: true,
           attributes: []
         },
@@ -308,8 +307,22 @@ export const schema = {
             associatedWith: "bookitemID"
           }
         },
+        rackID: {
+          name: "rackID",
+          isArray: false,
+          type: "ID",
+          isRequired: true,
+          attributes: []
+        },
         bookID: {
           name: "bookID",
+          isArray: false,
+          type: "ID",
+          isRequired: true,
+          attributes: []
+        },
+        barcodeID: {
+          name: "barcodeID",
           isArray: false,
           type: "ID",
           isRequired: true,
@@ -328,6 +341,13 @@ export const schema = {
           properties: {
             name: "byRack",
             fields: ["rackID"]
+          }
+        },
+        {
+          type: "key",
+          properties: {
+            name: "byBarcode",
+            fields: ["barcodeID"]
           }
         },
         {
@@ -360,10 +380,10 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        issue_date: {
-          name: "issue_date",
+        Username: {
+          name: "Username",
           isArray: false,
-          type: "AWSDate",
+          type: "String",
           isRequired: true,
           attributes: []
         },
@@ -374,10 +394,19 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
+        fine: {
+          name: "fine",
+          isArray: false,
+          type: "Int",
+          isRequired: false,
+          attributes: []
+        },
         status: {
           name: "status",
           isArray: false,
-          type: "String",
+          type: {
+            enum: "TransactionStatus"
+          },
           isRequired: true,
           attributes: []
         },
@@ -387,13 +416,6 @@ export const schema = {
           type: "ID",
           isRequired: true,
           attributes: []
-        },
-        Username: {
-          name: "Username",
-          isArray: false,
-          type: "String",
-          isRequired: false,
-          attributes: []
         }
       },
       syncable: true,
@@ -402,6 +424,14 @@ export const schema = {
         {
           type: "model",
           properties: {}
+        },
+        {
+          type: "key",
+          properties: {
+            name: "byUsername",
+            fields: ["Username"],
+            queryField: "transactionByUser"
+          }
         },
         {
           type: "key",
@@ -465,9 +495,7 @@ export const schema = {
       attributes: [
         {
           type: "model",
-          properties: {
-            queries: null
-          }
+          properties: {}
         },
         {
           type: "key",
@@ -517,13 +545,6 @@ export const schema = {
           isRequired: false,
           attributes: []
         },
-        description: {
-          name: "description",
-          isArray: false,
-          type: "String",
-          isRequired: false,
-          attributes: []
-        },
         books: {
           name: "books",
           isArray: true,
@@ -545,6 +566,14 @@ export const schema = {
         {
           type: "model",
           properties: {}
+        },
+        {
+          type: "searchable",
+          properties: {
+            queries: {
+              search: "searchAuthor"
+            }
+          }
         },
         {
           type: "auth",
@@ -569,27 +598,6 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        number: {
-          name: "number",
-          isArray: false,
-          type: "String",
-          isRequired: true,
-          attributes: []
-        },
-        location: {
-          name: "location",
-          isArray: false,
-          type: "String",
-          isRequired: true,
-          attributes: []
-        },
-        recently_used: {
-          name: "recently_used",
-          isArray: false,
-          type: "Boolean",
-          isRequired: false,
-          attributes: []
-        },
         BookItems: {
           name: "BookItems",
           isArray: true,
@@ -611,6 +619,14 @@ export const schema = {
         {
           type: "model",
           properties: {}
+        },
+        {
+          type: "searchable",
+          properties: {
+            queries: {
+              search: "searchRack"
+            }
+          }
         },
         {
           type: "auth",
@@ -651,24 +667,18 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        created_at: {
-          name: "created_at",
-          isArray: false,
-          type: "AWSDate",
-          isRequired: true,
-          attributes: []
-        },
-        Book: {
-          name: "Book",
-          isArray: false,
+        BookItems: {
+          name: "BookItems",
+          isArray: true,
           type: {
-            model: "Book"
+            model: "BookItem"
           },
           isRequired: false,
           attributes: [],
+          isArrayNullable: true,
           association: {
-            connectionType: "BELONGS_TO",
-            targetName: "barcodeBookId"
+            connectionType: "HAS_MANY",
+            associatedWith: "barcodeID"
           }
         }
       },
@@ -691,90 +701,26 @@ export const schema = {
           }
         }
       ]
-    },
-    Card: {
-      name: "Card",
-      fields: {
-        id: {
-          name: "id",
-          isArray: false,
-          type: "ID",
-          isRequired: true,
-          attributes: []
-        },
-        card_number: {
-          name: "card_number",
-          isArray: false,
-          type: "Int",
-          isRequired: true,
-          attributes: []
-        },
-        img_path: {
-          name: "img_path",
-          isArray: false,
-          type: "AWSURL",
-          isRequired: true,
-          attributes: []
-        },
-        status: {
-          name: "status",
-          isArray: false,
-          type: {
-            enum: "CardStatus"
-          },
-          isRequired: true,
-          attributes: []
-        },
-        issued_on: {
-          name: "issued_on",
-          isArray: false,
-          type: "AWSDate",
-          isRequired: true,
-          attributes: []
-        },
-        username: {
-          name: "username",
-          isArray: false,
-          type: "String",
-          isRequired: false,
-          attributes: []
-        }
-      },
-      syncable: true,
-      pluralName: "Cards",
-      attributes: [
-        {
-          type: "model",
-          properties: {}
-        },
-        {
-          type: "auth",
-          properties: {
-            rules: [
-              {
-                allow: "public",
-                operations: ["create", "update", "delete", "read"]
-              }
-            ]
-          }
-        }
-      ]
     }
   },
   enums: {
+    NotificationStatus: {
+      name: "NotificationStatus",
+      values: ["READ", "UNREAD"]
+    },
     BookStatus: {
       name: "BookStatus",
       values: ["ISSUED", "NOTISSUED", "LOST"]
     },
+    TransactionStatus: {
+      name: "TransactionStatus",
+      values: ["ISSUED", "RETURNED"]
+    },
     BarcodeStatus: {
       name: "BarcodeStatus",
       values: ["USED", "UNUSED"]
-    },
-    CardStatus: {
-      name: "CardStatus",
-      values: ["ISSUED", "DEPRICATED"]
     }
   },
   nonModels: {},
-  version: "cc13fc9e49e46ac1ad9bddd665a0c095"
+  version: "26389127b379ebd150d710ff1876fa8b"
 };
