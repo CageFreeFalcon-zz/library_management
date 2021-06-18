@@ -56,18 +56,6 @@
     },
     "nonCFNdata": {
       "function": {
-        "adminqueriesmodules": {
-          "layerVersionMap": {
-            "1": {
-              "permissions": [
-                {
-                  "type": "private"
-                }
-              ],
-              "hash": "mfTKV71PU6xp/F4jNbVaaB/eFjTPQ4hD0KLaVNt5kM0="
-            }
-          }
-        },
         "CreateLibraryCardModules": {
           "layerVersionMap": {
             "1": {
@@ -101,30 +89,6 @@
                 }
               ],
               "hash": "96RJ/bc4Cspu9/wcTErsUDlrtcoNQD5hV6v3Ih67L4w="
-            }
-          }
-        },
-        "s3ClientModule": {
-          "layerVersionMap": {
-            "1": {
-              "permissions": [
-                {
-                  "type": "private"
-                }
-              ],
-              "hash": "Yra2LVvV8ISBOB5vCDTfXpBuZcRNkw+1Wwgf7IqtTjo="
-            }
-          }
-        },
-        "qrCodeModule": {
-          "layerVersionMap": {
-            "1": {
-              "permissions": [
-                {
-                  "type": "private"
-                }
-              ],
-              "hash": "G1MWtQFwd0u+a/i+6tg+pG1sKENxeWS7vL8TvRMxEyk="
             }
           }
         }

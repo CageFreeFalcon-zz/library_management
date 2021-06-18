@@ -1,3 +1,6 @@
 {
-  "layerVersion": 1
+  "runtimes": [
+    "nodejs14.x"
+  ],
+  "description": ""
 }
