@@ -137,12 +137,6 @@ export default {
     barcode: VueBarcode
   },
   methods: {
-    ...mapGetters([
-      "getLabelDimension",
-      "getPageProps",
-      "getPageMargin",
-      "getBarcodeProps"
-    ]),
     convertToPixel(len, unit = "in", scale = 1) {
       switch (unit) {
         case "in":
@@ -155,6 +149,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      "getLabelDimension",
+      "getPageProps",
+      "getPageMargin",
+      "getBarcodeProps"
+    ]),
     cssVars() {
       return {
         "--label-width": this.convertToPixel(
@@ -220,10 +220,10 @@ export default {
     }
   },
   beforeMount() {
-    this.barcode = this.getBarcodeProps();
-    this.page = this.getPageProps();
-    this.label = this.getLabelDimension();
-    this.margin = this.getPageMargin();
+    this.barcode = this.getBarcodeProps;
+    this.page = this.getPageProps;
+    this.label = this.getLabelDimension;
+    this.margin = this.getPageMargin;
   }
 };
 </script>

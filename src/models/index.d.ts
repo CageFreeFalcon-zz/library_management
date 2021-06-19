@@ -48,7 +48,6 @@ export declare class AdminNotification {
 
 export declare class Book {
   readonly id: string;
-  readonly isbn: string;
   readonly title: string;
   readonly subject: string;
   readonly publisher: string;
@@ -101,6 +100,7 @@ export declare class Author {
 
 export declare class Rack {
   readonly id: string;
+  readonly name: string;
   readonly BookItems?: (BookItem | null)[];
   constructor(init: ModelInit<Rack>);
   static copyOf(source: Rack, mutator: (draft: MutableModel<Rack>) => MutableModel<Rack> | void): Rack;

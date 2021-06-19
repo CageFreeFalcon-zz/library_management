@@ -161,13 +161,6 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
-        isbn: {
-          name: "isbn",
-          isArray: false,
-          type: "String",
-          isRequired: true,
-          attributes: []
-        },
         title: {
           name: "title",
           isArray: false,
@@ -584,6 +577,13 @@ export const schema = {
           isRequired: true,
           attributes: []
         },
+        name: {
+          name: "name",
+          isArray: false,
+          type: "String",
+          isRequired: true,
+          attributes: []
+        },
         BookItems: {
           name: "BookItems",
           isArray: true,
@@ -700,5 +700,5 @@ export const schema = {
     }
   },
   nonModels: {},
-  version: "6b847a3eea2eac3ba2da38b99c3e6ed0"
+  version: "4cadf95164393f2c28210e5864a40251"
 };

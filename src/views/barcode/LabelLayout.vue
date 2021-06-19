@@ -158,8 +158,7 @@
 
 <script>
 import VueBarcode from "vue-barcode";
-import router from "../../router";
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Preview",
@@ -179,23 +178,22 @@ export default {
       },
       label: {
         row: 3,
-        col: 8,
-        count: null,
+        col: 13,
         remaining: true,
         width: {
-          length: 10,
-          unit: "cm"
+          length: 2,
+          unit: "in"
         },
         height: {
-          length: 10,
-          unit: "cm"
+          length: 0.625,
+          unit: "in"
         }
       }
     };
   },
   methods: {
     ...mapMutations(["setBarcodeProps"]),
-    ...mapGetters(["getLabelDimension"]),
+    ...mapActions(["generateBarcodes"]),
     convertToPixel(len, unit = "in") {
       switch (unit) {
         case "in":
@@ -206,13 +204,20 @@ export default {
           return this.convertToPixel(len / 10, "cm");
       }
     },
-    showPreview() {
+    async showPreview() {
       this.setBarcodeProps(this.barcode);
-      router.push({ path: "/barcode/preview" });
+      try {
+        await this.generateBarcodes();
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
-  beforeMount() {
-    this.label = this.getLabelDimension();
+  computed: {
+    ...mapGetters(["getLabelDimension"])
+  },
+  mounted() {
+    this.label = this.getLabelDimension;
   }
 };
 </script>

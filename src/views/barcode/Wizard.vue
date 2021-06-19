@@ -364,7 +364,7 @@ export default {
   name: "wizard",
   data() {
     return {
-      steppperstep: 1,
+      steppperstep: 5,
       units: ["in", "cm", "mm"],
       sizes: ["Letter", "Legal", "Tabloid", "A4", "A3", "Custom"],
       page: {

@@ -1,5 +1,5 @@
 type UserNotification @model
-@auth(rules: [{allow: public}])
+@auth(rules: [{allow: owner }])
 @key(name: "byUsername", fields: ["username"], queryField: "notificationByUser") {
   id: ID!
   title: String!
@@ -11,7 +11,7 @@ type UserNotification @model
 }
 
 type AdminNotification @model
-@auth(rules: [{allow: public}]) {
+@auth(rules: [{allow: owner }]) {
   id: ID!
   title: String!
   subtitle: String
@@ -22,7 +22,7 @@ type AdminNotification @model
 
 type Book @model
 @searchable(queries: { search: "searchBook" })
-@auth(rules: [{allow: public}]) {
+@auth(rules: [{allow: owner }]) {
   id: ID!
   title: String!
   subject: String!
@@ -36,7 +36,7 @@ type Book @model
 }
 
 type BookItem @model
-@auth(rules: [{allow: public}])
+@auth(rules: [{allow: owner }])
 @key(name: "byRack", fields: ["rackID"])
 @key(name: "byBook", fields: ["bookID"]) {
   id: ID!
@@ -48,7 +48,7 @@ type BookItem @model
 
 type Rack @model
 @searchable(queries: { search: "searchRack" })
-@auth(rules: [{allow: public}]) {
+@auth(rules: [{allow: owner }]) {
   id: ID!
   name: String!
   BookItems: [BookItem] @connection(keyName: "byRack", fields: ["id"])
@@ -56,14 +56,14 @@ type Rack @model
 
 type Author @model
 @searchable(queries: { search: "searchAuthor" })
-@auth(rules: [{allow: public}]) {
+@auth(rules: [{allow: owner }]) {
   id: ID!
   name: String
   books: [BookAuthor] @connection(keyName: "byAuthor", fields: ["id"])
 }
 
 type Barcode @model
-@auth(rules: [{allow: public}]) {
+@auth(rules: [{allow: owner }]) {
   id: ID!
   status: Barcode_Status!
   bookItemID: ID
@@ -71,7 +71,7 @@ type Barcode @model
 }
 
 type Transaction @model
-@auth(rules: [{allow: public}])
+@auth(rules: [{allow: owner }])
 @key(name: "byUsername", fields: ["Username"],  queryField: "transactionByUser")
 @key(name: "byBookItem", fields: ["bookitemID"]) {
   id: ID!
@@ -83,7 +83,7 @@ type Transaction @model
 }
 
 type BookAuthor @model
-@auth(rules: [{allow: public}, {allow: public}])
+@auth(rules: [{allow: owner }])
 @key(name: "byBook", fields: ["bookID", "authorID"])
 @key(name: "byAuthor", fields: ["authorID", "bookID"]) {
   id: ID!
@@ -94,19 +94,19 @@ type BookAuthor @model
 }
 
 enum Book_Status {
-  ISSUED
   NOTISSUED
+  ISSUED
   LOST
 }
 
 enum Barcode_Status {
-  USED
   UNUSED
+  USED
 }
 
 enum Notification_Status {
-  READ
   UNREAD
+  READ
 }
 
 enum Transaction_Status {
