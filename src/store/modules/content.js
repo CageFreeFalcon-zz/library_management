@@ -116,11 +116,11 @@ export default {
     },
     async generateBarcodes(context) {
       let barcodes = [];
-      // if (context.state.labelDimension.remaining) {
-      //   barcodes = await DataStore.query(models.Barcode, c =>
-      //     c.status("eq", models.BarcodeStatus.UNUSED)
-      //   );
-      // }
+      if (context.state.labelDimension.remaining) {
+        barcodes = await DataStore.query(models.Barcode, c =>
+          c.status("eq", models.BarcodeStatus.UNUSED)
+        );
+      }
       console.log(barcodes);
       let total =
         context.state.pageSize.count *
@@ -139,9 +139,7 @@ export default {
             id: new Date().getTime().toString(),
             status: models.BarcodeStatus.UNUSED
           };
-          // let temp = await DataStore.save(
-          //   new models.Barcode(data)
-          // );
+          console.log(data);
           let temp = await API.graphql(
             graphqlOperation(mutations.createBarcode, { input: data })
           );

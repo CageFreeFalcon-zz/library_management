@@ -1,13 +1,13 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
 export enum NotificationStatus {
-  READ = "READ",
-  UNREAD = "UNREAD"
+  UNREAD = "UNREAD",
+  READ = "READ"
 }
 
 export enum BookStatus {
-  ISSUED = "ISSUED",
   NOTISSUED = "NOTISSUED",
+  ISSUED = "ISSUED",
   LOST = "LOST"
 }
 
@@ -17,8 +17,8 @@ export enum TransactionStatus {
 }
 
 export enum BarcodeStatus {
-  USED = "USED",
-  UNUSED = "UNUSED"
+  UNUSED = "UNUSED",
+  USED = "USED"
 }
 
 

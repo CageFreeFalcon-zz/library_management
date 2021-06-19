@@ -75,7 +75,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -143,7 +146,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -259,7 +265,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -341,7 +350,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -424,7 +436,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -495,11 +510,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
-                operations: ["create", "update", "delete", "read"]
-              },
-              {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -559,7 +573,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -619,7 +636,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -672,7 +692,10 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: "public",
+                provider: "userPools",
+                ownerField: "owner",
+                allow: "owner",
+                identityClaim: "cognito:username",
                 operations: ["create", "update", "delete", "read"]
               }
             ]
@@ -684,11 +707,11 @@ export const schema = {
   enums: {
     NotificationStatus: {
       name: "NotificationStatus",
-      values: ["READ", "UNREAD"]
+      values: ["UNREAD", "READ"]
     },
     BookStatus: {
       name: "BookStatus",
-      values: ["ISSUED", "NOTISSUED", "LOST"]
+      values: ["NOTISSUED", "ISSUED", "LOST"]
     },
     TransactionStatus: {
       name: "TransactionStatus",
@@ -696,7 +719,7 @@ export const schema = {
     },
     BarcodeStatus: {
       name: "BarcodeStatus",
-      values: ["USED", "UNUSED"]
+      values: ["UNUSED", "USED"]
     }
   },
   nonModels: {},

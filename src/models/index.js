@@ -3,13 +3,13 @@ import { initSchema } from "@aws-amplify/datastore";
 import { schema } from "./schema";
 
 const NotificationStatus = {
-  READ: "READ",
-  UNREAD: "UNREAD"
+  UNREAD: "UNREAD",
+  READ: "READ"
 };
 
 const BookStatus = {
-  ISSUED: "ISSUED",
   NOTISSUED: "NOTISSUED",
+  ISSUED: "ISSUED",
   LOST: "LOST"
 };
 
@@ -19,8 +19,8 @@ const TransactionStatus = {
 };
 
 const BarcodeStatus = {
-  USED: "USED",
-  UNUSED: "UNUSED"
+  UNUSED: "UNUSED",
+  USED: "USED"
 };
 
 const {
