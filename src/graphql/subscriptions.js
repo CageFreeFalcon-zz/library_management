@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUserNotification = /* GraphQL */ `
-  subscription OnCreateUserNotification($owner: String) {
-    onCreateUserNotification(owner: $owner) {
+  subscription OnCreateUserNotification {
+    onCreateUserNotification {
       id
       title
       subtitle
@@ -16,13 +16,12 @@ export const onCreateUserNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateUserNotification = /* GraphQL */ `
-  subscription OnUpdateUserNotification($owner: String) {
-    onUpdateUserNotification(owner: $owner) {
+  subscription OnUpdateUserNotification {
+    onUpdateUserNotification {
       id
       title
       subtitle
@@ -35,13 +34,12 @@ export const onUpdateUserNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteUserNotification = /* GraphQL */ `
-  subscription OnDeleteUserNotification($owner: String) {
-    onDeleteUserNotification(owner: $owner) {
+  subscription OnDeleteUserNotification {
+    onDeleteUserNotification {
       id
       title
       subtitle
@@ -54,13 +52,12 @@ export const onDeleteUserNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onCreateAdminNotification = /* GraphQL */ `
-  subscription OnCreateAdminNotification($owner: String) {
-    onCreateAdminNotification(owner: $owner) {
+  subscription OnCreateAdminNotification {
+    onCreateAdminNotification {
       id
       title
       subtitle
@@ -72,13 +69,12 @@ export const onCreateAdminNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateAdminNotification = /* GraphQL */ `
-  subscription OnUpdateAdminNotification($owner: String) {
-    onUpdateAdminNotification(owner: $owner) {
+  subscription OnUpdateAdminNotification {
+    onUpdateAdminNotification {
       id
       title
       subtitle
@@ -90,13 +86,12 @@ export const onUpdateAdminNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteAdminNotification = /* GraphQL */ `
-  subscription OnDeleteAdminNotification($owner: String) {
-    onDeleteAdminNotification(owner: $owner) {
+  subscription OnDeleteAdminNotification {
+    onDeleteAdminNotification {
       id
       title
       subtitle
@@ -108,13 +103,12 @@ export const onDeleteAdminNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onCreateBook = /* GraphQL */ `
-  subscription OnCreateBook($owner: String) {
-    onCreateBook(owner: $owner) {
+  subscription OnCreateBook {
+    onCreateBook {
       id
       title
       subject
@@ -128,7 +122,6 @@ export const onCreateBook = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       BookItems {
         items {
           id
@@ -140,7 +133,6 @@ export const onCreateBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -155,7 +147,6 @@ export const onCreateBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -164,8 +155,8 @@ export const onCreateBook = /* GraphQL */ `
   }
 `;
 export const onUpdateBook = /* GraphQL */ `
-  subscription OnUpdateBook($owner: String) {
-    onUpdateBook(owner: $owner) {
+  subscription OnUpdateBook {
+    onUpdateBook {
       id
       title
       subject
@@ -179,7 +170,6 @@ export const onUpdateBook = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       BookItems {
         items {
           id
@@ -191,7 +181,6 @@ export const onUpdateBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -206,7 +195,6 @@ export const onUpdateBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -215,8 +203,8 @@ export const onUpdateBook = /* GraphQL */ `
   }
 `;
 export const onDeleteBook = /* GraphQL */ `
-  subscription OnDeleteBook($owner: String) {
-    onDeleteBook(owner: $owner) {
+  subscription OnDeleteBook {
+    onDeleteBook {
       id
       title
       subject
@@ -230,7 +218,6 @@ export const onDeleteBook = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       BookItems {
         items {
           id
@@ -242,7 +229,6 @@ export const onDeleteBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -257,7 +243,6 @@ export const onDeleteBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -266,8 +251,8 @@ export const onDeleteBook = /* GraphQL */ `
   }
 `;
 export const onCreateBookItem = /* GraphQL */ `
-  subscription OnCreateBookItem($owner: String) {
-    onCreateBookItem(owner: $owner) {
+  subscription OnCreateBookItem {
+    onCreateBookItem {
       id
       status
       rackID
@@ -277,7 +262,6 @@ export const onCreateBookItem = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       Transactions {
         items {
           id
@@ -291,7 +275,6 @@ export const onCreateBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -300,8 +283,8 @@ export const onCreateBookItem = /* GraphQL */ `
   }
 `;
 export const onUpdateBookItem = /* GraphQL */ `
-  subscription OnUpdateBookItem($owner: String) {
-    onUpdateBookItem(owner: $owner) {
+  subscription OnUpdateBookItem {
+    onUpdateBookItem {
       id
       status
       rackID
@@ -311,7 +294,6 @@ export const onUpdateBookItem = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       Transactions {
         items {
           id
@@ -325,7 +307,6 @@ export const onUpdateBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -334,8 +315,8 @@ export const onUpdateBookItem = /* GraphQL */ `
   }
 `;
 export const onDeleteBookItem = /* GraphQL */ `
-  subscription OnDeleteBookItem($owner: String) {
-    onDeleteBookItem(owner: $owner) {
+  subscription OnDeleteBookItem {
+    onDeleteBookItem {
       id
       status
       rackID
@@ -345,7 +326,6 @@ export const onDeleteBookItem = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       Transactions {
         items {
           id
@@ -359,7 +339,6 @@ export const onDeleteBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -368,8 +347,8 @@ export const onDeleteBookItem = /* GraphQL */ `
   }
 `;
 export const onCreateRack = /* GraphQL */ `
-  subscription OnCreateRack($owner: String) {
-    onCreateRack(owner: $owner) {
+  subscription OnCreateRack {
+    onCreateRack {
       id
       name
       _version
@@ -388,18 +367,16 @@ export const onCreateRack = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
     }
   }
 `;
 export const onUpdateRack = /* GraphQL */ `
-  subscription OnUpdateRack($owner: String) {
-    onUpdateRack(owner: $owner) {
+  subscription OnUpdateRack {
+    onUpdateRack {
       id
       name
       _version
@@ -418,18 +395,16 @@ export const onUpdateRack = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
     }
   }
 `;
 export const onDeleteRack = /* GraphQL */ `
-  subscription OnDeleteRack($owner: String) {
-    onDeleteRack(owner: $owner) {
+  subscription OnDeleteRack {
+    onDeleteRack {
       id
       name
       _version
@@ -448,18 +423,16 @@ export const onDeleteRack = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
     }
   }
 `;
 export const onCreateAuthor = /* GraphQL */ `
-  subscription OnCreateAuthor($owner: String) {
-    onCreateAuthor(owner: $owner) {
+  subscription OnCreateAuthor {
+    onCreateAuthor {
       id
       name
       _version
@@ -467,7 +440,6 @@ export const onCreateAuthor = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       books {
         items {
           id
@@ -478,7 +450,6 @@ export const onCreateAuthor = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -487,8 +458,8 @@ export const onCreateAuthor = /* GraphQL */ `
   }
 `;
 export const onUpdateAuthor = /* GraphQL */ `
-  subscription OnUpdateAuthor($owner: String) {
-    onUpdateAuthor(owner: $owner) {
+  subscription OnUpdateAuthor {
+    onUpdateAuthor {
       id
       name
       _version
@@ -496,7 +467,6 @@ export const onUpdateAuthor = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       books {
         items {
           id
@@ -507,7 +477,6 @@ export const onUpdateAuthor = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -516,8 +485,8 @@ export const onUpdateAuthor = /* GraphQL */ `
   }
 `;
 export const onDeleteAuthor = /* GraphQL */ `
-  subscription OnDeleteAuthor($owner: String) {
-    onDeleteAuthor(owner: $owner) {
+  subscription OnDeleteAuthor {
+    onDeleteAuthor {
       id
       name
       _version
@@ -525,7 +494,6 @@ export const onDeleteAuthor = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       books {
         items {
           id
@@ -536,7 +504,6 @@ export const onDeleteAuthor = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -545,8 +512,8 @@ export const onDeleteAuthor = /* GraphQL */ `
   }
 `;
 export const onCreateBarcode = /* GraphQL */ `
-  subscription OnCreateBarcode($owner: String) {
-    onCreateBarcode(owner: $owner) {
+  subscription OnCreateBarcode {
+    onCreateBarcode {
       id
       status
       bookItemID
@@ -565,19 +532,17 @@ export const onCreateBarcode = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         Transactions {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
 export const onUpdateBarcode = /* GraphQL */ `
-  subscription OnUpdateBarcode($owner: String) {
-    onUpdateBarcode(owner: $owner) {
+  subscription OnUpdateBarcode {
+    onUpdateBarcode {
       id
       status
       bookItemID
@@ -596,19 +561,17 @@ export const onUpdateBarcode = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         Transactions {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
 export const onDeleteBarcode = /* GraphQL */ `
-  subscription OnDeleteBarcode($owner: String) {
-    onDeleteBarcode(owner: $owner) {
+  subscription OnDeleteBarcode {
+    onDeleteBarcode {
       id
       status
       bookItemID
@@ -627,19 +590,17 @@ export const onDeleteBarcode = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         Transactions {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
 export const onCreateTransaction = /* GraphQL */ `
-  subscription OnCreateTransaction($owner: String) {
-    onCreateTransaction(owner: $owner) {
+  subscription OnCreateTransaction {
+    onCreateTransaction {
       id
       Username
       due_date
@@ -651,13 +612,12 @@ export const onCreateTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateTransaction = /* GraphQL */ `
-  subscription OnUpdateTransaction($owner: String) {
-    onUpdateTransaction(owner: $owner) {
+  subscription OnUpdateTransaction {
+    onUpdateTransaction {
       id
       Username
       due_date
@@ -669,13 +629,12 @@ export const onUpdateTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteTransaction = /* GraphQL */ `
-  subscription OnDeleteTransaction($owner: String) {
-    onDeleteTransaction(owner: $owner) {
+  subscription OnDeleteTransaction {
+    onDeleteTransaction {
       id
       Username
       due_date
@@ -687,13 +646,12 @@ export const onDeleteTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onCreateBookAuthor = /* GraphQL */ `
-  subscription OnCreateBookAuthor($owner: String) {
-    onCreateBookAuthor(owner: $owner) {
+  subscription OnCreateBookAuthor {
+    onCreateBookAuthor {
       id
       bookID
       authorID
@@ -716,7 +674,6 @@ export const onCreateBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -734,19 +691,17 @@ export const onCreateBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
 export const onUpdateBookAuthor = /* GraphQL */ `
-  subscription OnUpdateBookAuthor($owner: String) {
-    onUpdateBookAuthor(owner: $owner) {
+  subscription OnUpdateBookAuthor {
+    onUpdateBookAuthor {
       id
       bookID
       authorID
@@ -769,7 +724,6 @@ export const onUpdateBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -787,19 +741,17 @@ export const onUpdateBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
 export const onDeleteBookAuthor = /* GraphQL */ `
-  subscription OnDeleteBookAuthor($owner: String) {
-    onDeleteBookAuthor(owner: $owner) {
+  subscription OnDeleteBookAuthor {
+    onDeleteBookAuthor {
       id
       bookID
       authorID
@@ -822,7 +774,6 @@ export const onDeleteBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -840,13 +791,11 @@ export const onDeleteBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;

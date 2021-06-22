@@ -11,10 +11,13 @@ import aws_exports from "./aws-exports";
 import "./scss/main.scss";
 import MainBackground from "./components/MainBackground";
 
+window.LOG_LEVEL = "DEBUG";
+
+Amplify.register(Auth);
+Amplify.register(API);
+Amplify.register(DataStore);
 Amplify.configure(aws_exports);
-Auth.configure(aws_exports);
-API.configure(aws_exports);
-DataStore.configure(aws_exports);
+console.log(Amplify);
 
 Vue.config.productionTip = false;
 

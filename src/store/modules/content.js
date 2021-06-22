@@ -1,14 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import {
-  API,
-  Auth,
-  DataStore,
-  graphqlOperation,
-  Predicates,
-  SortDirection
-} from "aws-amplify";
-import * as mutations from "../../graphql/mutations";
+import { API, Auth, DataStore, Predicates, SortDirection } from "aws-amplify";
+// eslint-disable-next-line no-unused-vars
+import { createBarcode } from "../../graphql/mutations";
 import * as models from "../../models";
+// eslint-disable-next-line no-unused-vars
 import router from "../../router";
 
 export default {
@@ -117,9 +112,9 @@ export default {
     async generateBarcodes(context) {
       let barcodes = [];
       if (context.state.labelDimension.remaining) {
-        barcodes = await DataStore.query(models.Barcode, c =>
-          c.status("eq", models.BarcodeStatus.UNUSED)
-        );
+        barcodes = await DataStore.query(models.Barcode, c => {
+          c.status("eq", models.BarcodeStatus.UNUSED);
+        });
       }
       console.log(barcodes);
       let total =
@@ -127,27 +122,40 @@ export default {
         context.state.labelDimension.row *
         context.state.labelDimension.col;
       if (barcodes.length < total) {
-        let remaining = total - barcodes.length;
         let lastcode = await DataStore.query(models.Barcode, Predicates.ALL, {
           page: 0,
           limit: 10,
           sort: s => s.id(SortDirection.DESCENDING)
         });
         console.log(lastcode);
+        let remaining = total - barcodes.length;
         for (let i = 0; i < remaining; i++) {
           let data = {
-            id: new Date().getTime().toString(),
+            // id: new Date().getTime().toString(),
             status: models.BarcodeStatus.UNUSED
           };
-          console.log(data);
-          let temp = await API.graphql(
-            graphqlOperation(mutations.createBarcode, { input: data })
-          );
+          // console.log(typeof createBarcode);
+          // console.log(API);
+          // const session = await Auth.currentSession();
+          // console.log(session);
+          // let headers = {
+          //   Authorization: session.getAccessToken().getJwtToken()
+          // };
+          // let temp = await API.graphql(
+          //   {
+          //     query: createBarcode,
+          //     variables: { input: data },
+          //     authMode: "AMAZON_COGNITO_USER_POOLS"
+          //   },
+          //   headers
+          // );
+          let temp = await DataStore.save(new createBarcode(data));
           console.log(temp);
         }
       }
       context.commit("setBarcodes", barcodes);
-      await router.push({ path: "/barcode/preview" });
+      console.log("success");
+      // await router.push({ path: "/barcode/preview" });
     }
   }
 };

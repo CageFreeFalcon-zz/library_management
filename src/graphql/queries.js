@@ -16,7 +16,6 @@ export const getUserNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -44,7 +43,6 @@ export const listUserNotifications = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -79,7 +77,6 @@ export const notificationByUser = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -112,7 +109,6 @@ export const syncUserNotifications = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -133,7 +129,6 @@ export const getAdminNotification = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -160,7 +155,6 @@ export const listAdminNotifications = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -192,7 +186,6 @@ export const syncAdminNotifications = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -215,7 +208,6 @@ export const getBook = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       BookItems {
         items {
           id
@@ -227,7 +219,6 @@ export const getBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -242,7 +233,6 @@ export const getBook = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -271,7 +261,6 @@ export const listBooks = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -315,7 +304,6 @@ export const searchBook = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -357,7 +345,6 @@ export const syncBooks = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -384,7 +371,6 @@ export const getBookItem = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       Transactions {
         items {
           id
@@ -398,7 +384,6 @@ export const getBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -423,7 +408,6 @@ export const listBookItems = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         Transactions {
           nextToken
           startedAt
@@ -457,7 +441,6 @@ export const syncBookItems = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         Transactions {
           nextToken
           startedAt
@@ -489,12 +472,10 @@ export const getRack = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
     }
   }
 `;
@@ -517,7 +498,6 @@ export const listRacks = /* GraphQL */ `
           nextToken
           startedAt
         }
-        owner
       }
       nextToken
       startedAt
@@ -551,7 +531,6 @@ export const searchRack = /* GraphQL */ `
           nextToken
           startedAt
         }
-        owner
       }
       nextToken
       total
@@ -583,7 +562,6 @@ export const syncRacks = /* GraphQL */ `
           nextToken
           startedAt
         }
-        owner
       }
       nextToken
       startedAt
@@ -600,7 +578,6 @@ export const getAuthor = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       books {
         items {
           id
@@ -611,7 +588,6 @@ export const getAuthor = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         nextToken
         startedAt
@@ -634,7 +610,6 @@ export const listAuthors = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
@@ -668,7 +643,6 @@ export const searchAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
@@ -700,7 +674,6 @@ export const syncAuthors = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
@@ -732,13 +705,11 @@ export const getBarcode = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         Transactions {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
@@ -768,9 +739,7 @@ export const listBarcodes = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
-        owner
       }
       nextToken
       startedAt
@@ -809,9 +778,7 @@ export const syncBarcodes = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
-        owner
       }
       nextToken
       startedAt
@@ -832,7 +799,6 @@ export const getTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -855,7 +821,6 @@ export const listTransactions = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -889,7 +854,6 @@ export const transactionByUser = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -921,7 +885,6 @@ export const syncTransactions = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -953,7 +916,6 @@ export const getBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         BookItems {
           nextToken
           startedAt
@@ -971,13 +933,11 @@ export const getBookAuthor = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         books {
           nextToken
           startedAt
         }
       }
-      owner
     }
   }
 `;
@@ -1011,7 +971,6 @@ export const listBookAuthors = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         author {
           id
@@ -1021,9 +980,7 @@ export const listBookAuthors = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
-        owner
       }
       nextToken
       startedAt
@@ -1066,7 +1023,6 @@ export const syncBookAuthors = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         author {
           id
@@ -1076,9 +1032,7 @@ export const syncBookAuthors = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
-        owner
       }
       nextToken
       startedAt
