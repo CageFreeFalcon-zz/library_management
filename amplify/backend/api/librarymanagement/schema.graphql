@@ -24,6 +24,7 @@ type AdminNotification @model
 }
 
 type Book @model
+@searchable(queries: { search: "searchBook" })
 @auth(rules: [
     { allow: groups, groups: ["librarians"] },
     { allow: groups, groups: ["students", "requests"], operations: [read] }
@@ -62,6 +63,7 @@ type Rack @model
 }
 
 type Author @model
+@searchable(queries: { search: "searchAuthor" })
 @auth(rules: [
     {allow: groups, groups: ["librarians"] },
     { allow: groups, groups: ["students", "requests"], operations: [read] }
