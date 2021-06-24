@@ -37,8 +37,8 @@
               <v-sheet
                 outlined
                 rounded
-                v-for="i in label.row * label.col"
-                :key="i"
+                v-for="j in label.row * label.col"
+                :key="j"
                 :min-width="
                   convertToPixel(label.width.length, label.width.unit, zoom)
                 "
@@ -48,7 +48,9 @@
                 class="justify-center d-flex"
               >
                 <barcode
-                  :value="1000 + Math.floor(Math.random() * 2000)"
+                  :value="
+                    getBarcodes[(i - 1) * (label.row * label.col) + j - 1].id
+                  "
                   :width="barcode.width * zoom"
                   :height="barcode.height * zoom"
                   :margin="0"
@@ -153,7 +155,8 @@ export default {
       "getLabelDimension",
       "getPageProps",
       "getPageMargin",
-      "getBarcodeProps"
+      "getBarcodeProps",
+      "getBarcodes"
     ]),
     cssVars() {
       return {

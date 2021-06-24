@@ -13,7 +13,7 @@
           class="justify-center d-flex"
         >
           <barcode
-            value="123456"
+            :value="new Date().getTime().toString()"
             :width="this.barcode.width * this.scale_rate"
             :height="this.barcode.height * this.scale_rate"
             :margin="0"
@@ -149,7 +149,6 @@
           />
         </v-col>
         <v-col cols="12" sm="auto" class="justify-end">
-          <v-btn color="primary" @click="test">test</v-btn>
           <v-btn color="primary" @click="showPreview">Print Preview</v-btn>
         </v-col>
       </v-row>
@@ -160,8 +159,6 @@
 <script>
 import VueBarcode from "vue-barcode";
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import { DataStore } from "aws-amplify";
-import * as models from "../../models";
 
 export default {
   name: "Preview",
@@ -211,24 +208,6 @@ export default {
       this.setBarcodeProps(this.barcode);
       try {
         await this.generateBarcodes();
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    async test() {
-      try {
-        // let barcodes = await API.graphql({
-        //   query: listBarcodes,
-        // });
-        // console.log(Amplify);
-        // let res = initSchema(schema);
-        // console.log(res);
-        let barcodes = await DataStore.query(models.Barcode, c =>
-          c.status("eq", models.BarcodeStatus.UNUSED)
-        );
-        console.log("before", barcodes);
-        await DataStore.clear();
-        console.log("after", barcodes);
       } catch (e) {
         console.log(e);
       }

@@ -1,10 +1,8 @@
-// eslint-disable-next-line no-unused-vars
-import { API, Auth, DataStore, Predicates, SortDirection } from "aws-amplify";
-// eslint-disable-next-line no-unused-vars
+import { API, Auth } from "aws-amplify";
+import { listBarcodes } from "../../graphql/queries";
 import { createBarcode } from "../../graphql/mutations";
-import * as models from "../../models";
-// eslint-disable-next-line no-unused-vars
 import router from "../../router";
+import { BarcodeStatus } from "../../models";
 
 export default {
   state: {
@@ -69,7 +67,13 @@ export default {
     getPageMargin: state => state.pageMargin,
     getLabelDimension: state => state.labelDimension,
     getBarcodeProps: state => state.barcodeProps,
-    getBarcodes: state => state.barcodes
+    getBarcodes: state => {
+      let total =
+        state.pageSize.count *
+        state.labelDimension.row *
+        state.labelDimension.col;
+      return state.barcodes.slice(0, total);
+    }
   },
   mutations: {
     setPageProps: (state, payload) => (state.pageSize = payload),
@@ -103,59 +107,60 @@ export default {
       }
     },
     async addBooks(context, payload) {
-      DataStore.save(
-        new models.BookItem({
-          title: payload.title
-        })
-      );
+      return payload;
     },
     async generateBarcodes(context) {
       let barcodes = [];
-      if (context.state.labelDimension.remaining) {
-        barcodes = await DataStore.query(models.Barcode, c => {
-          c.status("eq", models.BarcodeStatus.UNUSED);
-        });
-      }
-      console.log(barcodes);
+      let token = null;
       let total =
         context.state.pageSize.count *
         context.state.labelDimension.row *
         context.state.labelDimension.col;
+      if (context.state.labelDimension.remaining) {
+        // eslint-disable-next-line no-constant-condition
+        while (1 === 1) {
+          const {
+            data: {
+              listBarcodes: { items: bc, nextToken }
+            }
+          } = await API.graphql({
+            query: listBarcodes,
+            variables: {
+              filter: {
+                status: {
+                  eq: BarcodeStatus.UNUSED
+                }
+              },
+              nextToken: token
+            }
+          });
+          barcodes.push(...bc);
+          token = nextToken;
+          if (!nextToken || barcodes.length >= total) {
+            break;
+          }
+        }
+      }
       if (barcodes.length < total) {
-        let lastcode = await DataStore.query(models.Barcode, Predicates.ALL, {
-          page: 0,
-          limit: 10,
-          sort: s => s.id(SortDirection.DESCENDING)
-        });
-        console.log(lastcode);
         let remaining = total - barcodes.length;
         for (let i = 0; i < remaining; i++) {
-          let data = {
-            // id: new Date().getTime().toString(),
-            status: models.BarcodeStatus.UNUSED
-          };
-          // console.log(typeof createBarcode);
-          // console.log(API);
-          // const session = await Auth.currentSession();
-          // console.log(session);
-          // let headers = {
-          //   Authorization: session.getAccessToken().getJwtToken()
-          // };
-          // let temp = await API.graphql(
-          //   {
-          //     query: createBarcode,
-          //     variables: { input: data },
-          //     authMode: "AMAZON_COGNITO_USER_POOLS"
-          //   },
-          //   headers
-          // );
-          let temp = await DataStore.save(new createBarcode(data));
-          console.log(temp);
+          const {
+            data: { createBarcode: barcode }
+          } = await API.graphql({
+            query: createBarcode,
+            variables: {
+              input: {
+                id: new Date().getTime().toString(),
+                status: BarcodeStatus.UNUSED
+              }
+            }
+          });
+          barcodes.push(barcode);
         }
       }
       context.commit("setBarcodes", barcodes);
-      console.log("success");
-      // await router.push({ path: "/barcode/preview" });
+      console.log("success created barcodes");
+      await router.push({ path: "/barcode/preview" });
     }
   }
 };

@@ -8,7 +8,6 @@ export const getUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -35,41 +34,6 @@ export const listUserNotifications = /* GraphQL */ `
         title
         subtitle
         content
-        link
-        username
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const notificationByUser = /* GraphQL */ `
-  query NotificationByUser(
-    $username: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserNotificationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    notificationByUser(
-      username: $username
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        title
-        subtitle
-        content
-        link
         username
         status
         _version
@@ -101,7 +65,6 @@ export const syncUserNotifications = /* GraphQL */ `
         title
         subtitle
         content
-        link
         username
         status
         _version
@@ -122,13 +85,13 @@ export const getAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -148,13 +111,13 @@ export const listAdminNotifications = /* GraphQL */ `
         title
         subtitle
         content
-        link
         status
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -179,13 +142,13 @@ export const syncAdminNotifications = /* GraphQL */ `
         title
         subtitle
         content
-        link
         status
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -275,49 +238,6 @@ export const listBooks = /* GraphQL */ `
     }
   }
 `;
-export const searchBook = /* GraphQL */ `
-  query SearchBook(
-    $filter: SearchableBookFilterInput
-    $sort: SearchableBookSortInput
-    $limit: Int
-    $nextToken: String
-    $from: Int
-  ) {
-    searchBook(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
-      items {
-        id
-        title
-        subject
-        publisher
-        language
-        edition
-        copies_present
-        copies_issued
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-        Authors {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      total
-    }
-  }
-`;
 export const syncBooks = /* GraphQL */ `
   query SyncBooks(
     $filter: ModelBookFilterInput
@@ -384,6 +304,8 @@ export const getBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -504,39 +426,6 @@ export const listRacks = /* GraphQL */ `
     }
   }
 `;
-export const searchRack = /* GraphQL */ `
-  query SearchRack(
-    $filter: SearchableRackFilterInput
-    $sort: SearchableRackSortInput
-    $limit: Int
-    $nextToken: String
-    $from: Int
-  ) {
-    searchRack(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      total
-    }
-  }
-`;
 export const syncRacks = /* GraphQL */ `
   query SyncRacks(
     $filter: ModelRackFilterInput
@@ -617,39 +506,6 @@ export const listAuthors = /* GraphQL */ `
       }
       nextToken
       startedAt
-    }
-  }
-`;
-export const searchAuthor = /* GraphQL */ `
-  query SearchAuthor(
-    $filter: SearchableAuthorFilterInput
-    $sort: SearchableAuthorSortInput
-    $limit: Int
-    $nextToken: String
-    $from: Int
-  ) {
-    searchAuthor(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        books {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      total
     }
   }
 `;
@@ -799,6 +655,8 @@ export const getTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;
@@ -821,39 +679,8 @@ export const listTransactions = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const transactionByUser = /* GraphQL */ `
-  query TransactionByUser(
-    $Username: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelTransactionFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    transactionByUser(
-      Username: $Username
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        Username
-        due_date
-        fine
-        status
-        bookitemID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        owner
+        username
       }
       nextToken
       startedAt
@@ -885,6 +712,8 @@ export const syncTransactions = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        owner
+        username
       }
       nextToken
       startedAt

@@ -11,7 +11,6 @@ export const createUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -32,7 +31,6 @@ export const updateUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -53,7 +51,6 @@ export const deleteUserNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -74,13 +71,13 @@ export const createAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -94,13 +91,13 @@ export const updateAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -114,13 +111,13 @@ export const deleteAdminNotification = /* GraphQL */ `
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -305,6 +302,8 @@ export const createBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -340,6 +339,8 @@ export const updateBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -375,6 +376,8 @@ export const deleteBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -678,6 +681,8 @@ export const createTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;
@@ -698,6 +703,8 @@ export const updateTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;
@@ -718,6 +725,8 @@ export const deleteTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;

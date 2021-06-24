@@ -2,13 +2,12 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUserNotification = /* GraphQL */ `
-  subscription OnCreateUserNotification {
-    onCreateUserNotification {
+  subscription OnCreateUserNotification($username: String) {
+    onCreateUserNotification(username: $username) {
       id
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -20,13 +19,12 @@ export const onCreateUserNotification = /* GraphQL */ `
   }
 `;
 export const onUpdateUserNotification = /* GraphQL */ `
-  subscription OnUpdateUserNotification {
-    onUpdateUserNotification {
+  subscription OnUpdateUserNotification($username: String) {
+    onUpdateUserNotification(username: $username) {
       id
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -38,13 +36,12 @@ export const onUpdateUserNotification = /* GraphQL */ `
   }
 `;
 export const onDeleteUserNotification = /* GraphQL */ `
-  subscription OnDeleteUserNotification {
-    onDeleteUserNotification {
+  subscription OnDeleteUserNotification($username: String) {
+    onDeleteUserNotification(username: $username) {
       id
       title
       subtitle
       content
-      link
       username
       status
       _version
@@ -56,53 +53,53 @@ export const onDeleteUserNotification = /* GraphQL */ `
   }
 `;
 export const onCreateAdminNotification = /* GraphQL */ `
-  subscription OnCreateAdminNotification {
-    onCreateAdminNotification {
+  subscription OnCreateAdminNotification($owner: String) {
+    onCreateAdminNotification(owner: $owner) {
       id
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateAdminNotification = /* GraphQL */ `
-  subscription OnUpdateAdminNotification {
-    onUpdateAdminNotification {
+  subscription OnUpdateAdminNotification($owner: String) {
+    onUpdateAdminNotification(owner: $owner) {
       id
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteAdminNotification = /* GraphQL */ `
-  subscription OnDeleteAdminNotification {
-    onDeleteAdminNotification {
+  subscription OnDeleteAdminNotification($owner: String) {
+    onDeleteAdminNotification(owner: $owner) {
       id
       title
       subtitle
       content
-      link
       status
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -275,6 +272,8 @@ export const onCreateBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -307,6 +306,8 @@ export const onUpdateBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -339,6 +340,8 @@ export const onDeleteBookItem = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          owner
+          username
         }
         nextToken
         startedAt
@@ -599,8 +602,8 @@ export const onDeleteBarcode = /* GraphQL */ `
   }
 `;
 export const onCreateTransaction = /* GraphQL */ `
-  subscription OnCreateTransaction {
-    onCreateTransaction {
+  subscription OnCreateTransaction($owner: String, $username: String) {
+    onCreateTransaction(owner: $owner, username: $username) {
       id
       Username
       due_date
@@ -612,12 +615,14 @@ export const onCreateTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;
 export const onUpdateTransaction = /* GraphQL */ `
-  subscription OnUpdateTransaction {
-    onUpdateTransaction {
+  subscription OnUpdateTransaction($owner: String, $username: String) {
+    onUpdateTransaction(owner: $owner, username: $username) {
       id
       Username
       due_date
@@ -629,12 +634,14 @@ export const onUpdateTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;
 export const onDeleteTransaction = /* GraphQL */ `
-  subscription OnDeleteTransaction {
-    onDeleteTransaction {
+  subscription OnDeleteTransaction($owner: String, $username: String) {
+    onDeleteTransaction(owner: $owner, username: $username) {
       id
       Username
       due_date
@@ -646,6 +653,8 @@ export const onDeleteTransaction = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      username
     }
   }
 `;

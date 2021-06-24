@@ -1,28 +1,34 @@
 type UserNotification @model
-@auth(rules: [{allow: groups, groups: ["librarians"] }])
-@key(name: "byUsername", fields: ["username"], queryField: "notificationByUser") {
+@auth(rules: [
+    { allow: owner, ownerField: "username" },
+    { allow: groups, groups: ["librarians"]}
+]) {
   id: ID!
   title: String!
   subtitle: String
   content: String!
-  link: AWSURL!
   username: String!
   status: Notification_Status
 }
 
 type AdminNotification @model
-@auth(rules: [{allow: groups, groups: ["librarians"] }]) {
+@auth(rules: [
+    { allow: owner},
+    { allow: groups, groups: ["librarians"]}
+]) {
   id: ID!
   title: String!
   subtitle: String
   content: String!
-  link: AWSURL!
   status: Notification_Status
 }
 
 type Book @model
 @searchable(queries: { search: "searchBook" })
-@auth(rules: [{allow: groups, groups: ["librarians"] }]) {
+@auth(rules: [
+    { allow: groups, groups: ["librarians"] },
+    { allow: groups, groups: ["students", "requests"], operations: [read] }
+]) {
   id: ID!
   title: String!
   subject: String!
@@ -36,7 +42,10 @@ type Book @model
 }
 
 type BookItem @model
-@auth(rules: [{allow: groups, groups: ["librarians"] }])
+@auth(rules: [
+    {allow: groups, groups: ["librarians"] },
+    { allow: groups, groups: ["students"], operations: [read] }
+])
 @key(name: "byRack", fields: ["rackID"])
 @key(name: "byBook", fields: ["bookID"]) {
   id: ID!
@@ -47,7 +56,6 @@ type BookItem @model
 }
 
 type Rack @model
-@searchable(queries: { search: "searchRack" })
 @auth(rules: [{allow: groups, groups: ["librarians"] }]) {
   id: ID!
   name: String!
@@ -56,7 +64,10 @@ type Rack @model
 
 type Author @model
 @searchable(queries: { search: "searchAuthor" })
-@auth(rules: [{allow: groups, groups: ["librarians"] }]) {
+@auth(rules: [
+    {allow: groups, groups: ["librarians"] },
+    { allow: groups, groups: ["students", "requests"], operations: [read] }
+]) {
   id: ID!
   name: String
   books: [BookAuthor] @connection(keyName: "byAuthor", fields: ["id"])
@@ -71,8 +82,11 @@ type Barcode @model
 }
 
 type Transaction @model
-@auth(rules: [{allow: groups, groups: ["librarians"] }])
-@key(name: "byUsername", fields: ["Username"],  queryField: "transactionByUser")
+@auth(rules: [
+    { allow: owner}
+    { allow: owner, ownerField: "username", operations: [read] }
+    { allow: groups, groups: ["librarians"] },
+])
 @key(name: "byBookItem", fields: ["bookitemID"]) {
   id: ID!
   Username: String!
@@ -83,7 +97,10 @@ type Transaction @model
 }
 
 type BookAuthor @model
-@auth(rules: [{allow: groups, groups: ["librarians"] }])
+@auth(rules: [
+    { allow: groups, groups: ["librarians"] },
+    { allow: groups, groups: ["students", "requests"], operations: [read] }
+])
 @key(name: "byBook", fields: ["bookID", "authorID"])
 @key(name: "byAuthor", fields: ["authorID", "bookID"]) {
   id: ID!
