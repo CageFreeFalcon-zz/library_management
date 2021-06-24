@@ -13,9 +13,6 @@ export const createUserNotification = /* GraphQL */ `
       content
       username
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -33,9 +30,6 @@ export const updateUserNotification = /* GraphQL */ `
       content
       username
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -53,9 +47,6 @@ export const deleteUserNotification = /* GraphQL */ `
       content
       username
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -72,9 +63,6 @@ export const createAdminNotification = /* GraphQL */ `
       subtitle
       content
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -92,9 +80,6 @@ export const updateAdminNotification = /* GraphQL */ `
       subtitle
       content
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -112,9 +97,6 @@ export const deleteAdminNotification = /* GraphQL */ `
       subtitle
       content
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -135,9 +117,6 @@ export const createBook = /* GraphQL */ `
       edition
       copies_present
       copies_issued
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -146,28 +125,20 @@ export const createBook = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       Authors {
         items {
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -186,9 +157,6 @@ export const updateBook = /* GraphQL */ `
       edition
       copies_present
       copies_issued
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -197,28 +165,20 @@ export const updateBook = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       Authors {
         items {
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -237,9 +197,6 @@ export const deleteBook = /* GraphQL */ `
       edition
       copies_present
       copies_issued
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -248,28 +205,20 @@ export const deleteBook = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       Authors {
         items {
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -284,9 +233,6 @@ export const createBookItem = /* GraphQL */ `
       status
       rackID
       bookID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       Transactions {
@@ -297,16 +243,12 @@ export const createBookItem = /* GraphQL */ `
           fine
           status
           bookitemID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
           owner
           username
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -321,9 +263,6 @@ export const updateBookItem = /* GraphQL */ `
       status
       rackID
       bookID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       Transactions {
@@ -334,16 +273,12 @@ export const updateBookItem = /* GraphQL */ `
           fine
           status
           bookitemID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
           owner
           username
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -358,9 +293,6 @@ export const deleteBookItem = /* GraphQL */ `
       status
       rackID
       bookID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       Transactions {
@@ -371,16 +303,12 @@ export const deleteBookItem = /* GraphQL */ `
           fine
           status
           bookitemID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
           owner
           username
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -393,9 +321,6 @@ export const createRack = /* GraphQL */ `
     createRack(input: $input, condition: $condition) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -404,14 +329,10 @@ export const createRack = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -424,9 +345,6 @@ export const updateRack = /* GraphQL */ `
     updateRack(input: $input, condition: $condition) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -435,14 +353,10 @@ export const updateRack = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -455,9 +369,6 @@ export const deleteRack = /* GraphQL */ `
     deleteRack(input: $input, condition: $condition) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -466,14 +377,10 @@ export const deleteRack = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -486,9 +393,6 @@ export const createAuthor = /* GraphQL */ `
     createAuthor(input: $input, condition: $condition) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       books {
@@ -496,14 +400,10 @@ export const createAuthor = /* GraphQL */ `
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -516,9 +416,6 @@ export const updateAuthor = /* GraphQL */ `
     updateAuthor(input: $input, condition: $condition) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       books {
@@ -526,14 +423,10 @@ export const updateAuthor = /* GraphQL */ `
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -546,9 +439,6 @@ export const deleteAuthor = /* GraphQL */ `
     deleteAuthor(input: $input, condition: $condition) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       books {
@@ -556,14 +446,10 @@ export const deleteAuthor = /* GraphQL */ `
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -577,9 +463,6 @@ export const createBarcode = /* GraphQL */ `
       id
       status
       bookItemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -587,14 +470,10 @@ export const createBarcode = /* GraphQL */ `
         status
         rackID
         bookID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         Transactions {
           nextToken
-          startedAt
         }
       }
     }
@@ -609,9 +488,6 @@ export const updateBarcode = /* GraphQL */ `
       id
       status
       bookItemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -619,14 +495,10 @@ export const updateBarcode = /* GraphQL */ `
         status
         rackID
         bookID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         Transactions {
           nextToken
-          startedAt
         }
       }
     }
@@ -641,9 +513,6 @@ export const deleteBarcode = /* GraphQL */ `
       id
       status
       bookItemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -651,14 +520,10 @@ export const deleteBarcode = /* GraphQL */ `
         status
         rackID
         bookID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         Transactions {
           nextToken
-          startedAt
         }
       }
     }
@@ -676,9 +541,6 @@ export const createTransaction = /* GraphQL */ `
       fine
       status
       bookitemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -698,9 +560,6 @@ export const updateTransaction = /* GraphQL */ `
       fine
       status
       bookitemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -720,9 +579,6 @@ export const deleteTransaction = /* GraphQL */ `
       fine
       status
       bookitemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -739,9 +595,6 @@ export const createBookAuthor = /* GraphQL */ `
       id
       bookID
       authorID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -753,31 +606,22 @@ export const createBookAuthor = /* GraphQL */ `
         edition
         copies_present
         copies_issued
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
         Authors {
           nextToken
-          startedAt
         }
       }
       author {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         books {
           nextToken
-          startedAt
         }
       }
     }
@@ -792,9 +636,6 @@ export const updateBookAuthor = /* GraphQL */ `
       id
       bookID
       authorID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -806,31 +647,22 @@ export const updateBookAuthor = /* GraphQL */ `
         edition
         copies_present
         copies_issued
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
         Authors {
           nextToken
-          startedAt
         }
       }
       author {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         books {
           nextToken
-          startedAt
         }
       }
     }
@@ -845,9 +677,6 @@ export const deleteBookAuthor = /* GraphQL */ `
       id
       bookID
       authorID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -859,31 +688,22 @@ export const deleteBookAuthor = /* GraphQL */ `
         edition
         copies_present
         copies_issued
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
         Authors {
           nextToken
-          startedAt
         }
       }
       author {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         books {
           nextToken
-          startedAt
         }
       }
     }

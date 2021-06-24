@@ -10,9 +10,6 @@ export const getUserNotification = /* GraphQL */ `
       content
       username
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -36,45 +33,10 @@ export const listUserNotifications = /* GraphQL */ `
         content
         username
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUserNotifications = /* GraphQL */ `
-  query SyncUserNotifications(
-    $filter: ModelUserNotificationFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUserNotifications(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        title
-        subtitle
-        content
-        username
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -86,9 +48,6 @@ export const getAdminNotification = /* GraphQL */ `
       subtitle
       content
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -112,46 +71,11 @@ export const listAdminNotifications = /* GraphQL */ `
         subtitle
         content
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         owner
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAdminNotifications = /* GraphQL */ `
-  query SyncAdminNotifications(
-    $filter: ModelAdminNotificationFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAdminNotifications(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        title
-        subtitle
-        content
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -166,9 +90,6 @@ export const getBook = /* GraphQL */ `
       edition
       copies_present
       copies_issued
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -177,28 +98,20 @@ export const getBook = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       Authors {
         items {
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -219,37 +132,33 @@ export const listBooks = /* GraphQL */ `
         edition
         copies_present
         copies_issued
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
         Authors {
           nextToken
-          startedAt
         }
       }
       nextToken
-      startedAt
     }
   }
 `;
-export const syncBooks = /* GraphQL */ `
-  query SyncBooks(
-    $filter: ModelBookFilterInput
+export const searchBook = /* GraphQL */ `
+  query SearchBook(
+    $filter: SearchableBookFilterInput
+    $sort: SearchableBookSortInput
     $limit: Int
     $nextToken: String
-    $lastSync: AWSTimestamp
+    $from: Int
   ) {
-    syncBooks(
+    searchBook(
       filter: $filter
+      sort: $sort
       limit: $limit
       nextToken: $nextToken
-      lastSync: $lastSync
+      from: $from
     ) {
       items {
         id
@@ -260,22 +169,17 @@ export const syncBooks = /* GraphQL */ `
         edition
         copies_present
         copies_issued
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
         Authors {
           nextToken
-          startedAt
         }
       }
       nextToken
-      startedAt
+      total
     }
   }
 `;
@@ -286,9 +190,6 @@ export const getBookItem = /* GraphQL */ `
       status
       rackID
       bookID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       Transactions {
@@ -299,16 +200,12 @@ export const getBookItem = /* GraphQL */ `
           fine
           status
           bookitemID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
           owner
           username
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -325,51 +222,13 @@ export const listBookItems = /* GraphQL */ `
         status
         rackID
         bookID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         Transactions {
           nextToken
-          startedAt
         }
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncBookItems = /* GraphQL */ `
-  query SyncBookItems(
-    $filter: ModelBookItemFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBookItems(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        status
-        rackID
-        bookID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Transactions {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -378,9 +237,6 @@ export const getRack = /* GraphQL */ `
     getRack(id: $id) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       BookItems {
@@ -389,14 +245,10 @@ export const getRack = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -411,49 +263,13 @@ export const listRacks = /* GraphQL */ `
       items {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncRacks = /* GraphQL */ `
-  query SyncRacks(
-    $filter: ModelRackFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncRacks(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        BookItems {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -462,9 +278,6 @@ export const getAuthor = /* GraphQL */ `
     getAuthor(id: $id) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       books {
@@ -472,14 +285,10 @@ export const getAuthor = /* GraphQL */ `
           id
           bookID
           authorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
     }
   }
@@ -494,49 +303,42 @@ export const listAuthors = /* GraphQL */ `
       items {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         books {
           nextToken
-          startedAt
         }
       }
       nextToken
-      startedAt
     }
   }
 `;
-export const syncAuthors = /* GraphQL */ `
-  query SyncAuthors(
-    $filter: ModelAuthorFilterInput
+export const searchAuthor = /* GraphQL */ `
+  query SearchAuthor(
+    $filter: SearchableAuthorFilterInput
+    $sort: SearchableAuthorSortInput
     $limit: Int
     $nextToken: String
-    $lastSync: AWSTimestamp
+    $from: Int
   ) {
-    syncAuthors(
+    searchAuthor(
       filter: $filter
+      sort: $sort
       limit: $limit
       nextToken: $nextToken
-      lastSync: $lastSync
+      from: $from
     ) {
       items {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         books {
           nextToken
-          startedAt
         }
       }
       nextToken
-      startedAt
+      total
     }
   }
 `;
@@ -546,9 +348,6 @@ export const getBarcode = /* GraphQL */ `
       id
       status
       bookItemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -556,14 +355,10 @@ export const getBarcode = /* GraphQL */ `
         status
         rackID
         bookID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         Transactions {
           nextToken
-          startedAt
         }
       }
     }
@@ -580,9 +375,6 @@ export const listBarcodes = /* GraphQL */ `
         id
         status
         bookItemID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         book {
@@ -590,54 +382,11 @@ export const listBarcodes = /* GraphQL */ `
           status
           rackID
           bookID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncBarcodes = /* GraphQL */ `
-  query SyncBarcodes(
-    $filter: ModelBarcodeFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBarcodes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        status
-        bookItemID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        book {
-          id
-          status
-          rackID
-          bookID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -650,9 +399,6 @@ export const getTransaction = /* GraphQL */ `
       fine
       status
       bookitemID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -674,49 +420,12 @@ export const listTransactions = /* GraphQL */ `
         fine
         status
         bookitemID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         owner
         username
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncTransactions = /* GraphQL */ `
-  query SyncTransactions(
-    $filter: ModelTransactionFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTransactions(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        Username
-        due_date
-        fine
-        status
-        bookitemID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-        username
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -726,9 +435,6 @@ export const getBookAuthor = /* GraphQL */ `
       id
       bookID
       authorID
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       book {
@@ -740,31 +446,22 @@ export const getBookAuthor = /* GraphQL */ `
         edition
         copies_present
         copies_issued
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         BookItems {
           nextToken
-          startedAt
         }
         Authors {
           nextToken
-          startedAt
         }
       }
       author {
         id
         name
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         books {
           nextToken
-          startedAt
         }
       }
     }
@@ -781,9 +478,6 @@ export const listBookAuthors = /* GraphQL */ `
         id
         bookID
         authorID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         book {
@@ -795,76 +489,17 @@ export const listBookAuthors = /* GraphQL */ `
           edition
           copies_present
           copies_issued
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         author {
           id
           name
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncBookAuthors = /* GraphQL */ `
-  query SyncBookAuthors(
-    $filter: ModelBookAuthorFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBookAuthors(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        bookID
-        authorID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        book {
-          id
-          title
-          subject
-          publisher
-          language
-          edition
-          copies_present
-          copies_issued
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        author {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-      startedAt
     }
   }
 `;
