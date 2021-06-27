@@ -42,16 +42,6 @@ export default {
     setAuthState: (state, payload) => (state.authstate = payload)
   },
   actions: {
-    async isLoggedIn(context) {
-      try {
-        await Auth.currentAuthenticatedUser();
-        context.commit("setAuthStatus", true);
-        return true;
-      } catch (e) {
-        context.commit("setAuthStatus", false);
-        return false;
-      }
-    },
     async completePassword(context, payload) {
       context.commit("setloading", true);
       context.commit("setmessage", {
@@ -64,7 +54,6 @@ export default {
             context.getters.getUser,
             payload.password
           );
-          console.log(user);
           context.commit("setuser", user);
           context.dispatch("loginIfLibrarian", user);
         } else {
@@ -140,7 +129,6 @@ export default {
       });
       try {
         const user = await Auth.signIn(payload.username, payload.password);
-        console.log(user);
         context.commit("setuser", user);
         if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
           context.commit("setAuthState", NewPassword);
@@ -190,7 +178,7 @@ export default {
       if (isLibrarian) {
         context.commit("setAuthStatus", true);
         context.commit("setAuthState", Login);
-        router.push("/dashboard");
+        await router.push("/dashboard");
       } else {
         context.commit("setmessage", {
           message: "you are not authorized",

@@ -238,7 +238,7 @@ export const createBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -246,7 +246,6 @@ export const createBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -268,7 +267,7 @@ export const updateBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -276,7 +275,6 @@ export const updateBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -298,7 +296,7 @@ export const deleteBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -306,7 +304,6 @@ export const deleteBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -536,7 +533,7 @@ export const createTransaction = /* GraphQL */ `
   ) {
     createTransaction(input: $input, condition: $condition) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -544,7 +541,6 @@ export const createTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;
@@ -555,7 +551,7 @@ export const updateTransaction = /* GraphQL */ `
   ) {
     updateTransaction(input: $input, condition: $condition) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -563,7 +559,6 @@ export const updateTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;
@@ -574,7 +569,7 @@ export const deleteTransaction = /* GraphQL */ `
   ) {
     deleteTransaction(input: $input, condition: $condition) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -582,7 +577,6 @@ export const deleteTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;

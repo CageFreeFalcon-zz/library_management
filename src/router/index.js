@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Auth from "../views/Auth";
+import { Auth as auth } from "aws-amplify";
 import MyAppBar from "../components/MyAppBar";
 import MyNavigationDrawer from "../components/MyNavigationDrawer";
 
@@ -71,6 +72,26 @@ const router = new VueRouter({
   mode: "hash",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach(async (to, from, next) => {
+  if (to.name === "Auth") {
+    try {
+      await auth.currentAuthenticatedUser();
+      next("/dashboard");
+    } catch (e) {
+      console.log(e);
+      next();
+    }
+  } else {
+    try {
+      await auth.currentAuthenticatedUser();
+      next();
+    } catch (e) {
+      console.log(e);
+      next("/");
+    }
+  }
 });
 
 export default router;

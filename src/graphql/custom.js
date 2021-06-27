@@ -9,22 +9,33 @@ export const getBookCustom = /* GraphQL */ `
       edition
       copies_present
       copies_issued
-      createdAt
-      updatedAt
       Authors {
         items {
-          id
-          bookID
-          authorID
           author {
             id
             name
-            createdAt
-            updatedAt
           }
         }
-        nextToken
-        startedAt
+      }
+    }
+  }
+`;
+export const getBarcodeCustom = /* GraphQL */ `
+  query GetBarcode($id: ID!) {
+    getBarcode(id: $id) {
+      id
+      status
+      bookitem {
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+        }
       }
     }
   }

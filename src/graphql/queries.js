@@ -195,7 +195,7 @@ export const getBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -203,7 +203,6 @@ export const getBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -394,7 +393,7 @@ export const getTransaction = /* GraphQL */ `
   query GetTransaction($id: ID!) {
     getTransaction(id: $id) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -402,7 +401,6 @@ export const getTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;
@@ -415,7 +413,7 @@ export const listTransactions = /* GraphQL */ `
     listTransactions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        Username
+        username
         due_date
         fine
         status
@@ -423,7 +421,36 @@ export const listTransactions = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+      }
+      nextToken
+    }
+  }
+`;
+export const transactionByUser = /* GraphQL */ `
+  query TransactionByUser(
+    $username: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelTransactionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    transactionByUser(
+      username: $username
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
         username
+        due_date
+        fine
+        status
+        bookitemID
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }

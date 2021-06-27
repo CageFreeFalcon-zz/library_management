@@ -208,7 +208,7 @@ export const onCreateBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -216,7 +216,6 @@ export const onCreateBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -235,7 +234,7 @@ export const onUpdateBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -243,7 +242,6 @@ export const onUpdateBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -262,7 +260,7 @@ export const onDeleteBookItem = /* GraphQL */ `
       Transactions {
         items {
           id
-          Username
+          username
           due_date
           fine
           status
@@ -270,7 +268,6 @@ export const onDeleteBookItem = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          username
         }
         nextToken
       }
@@ -470,7 +467,7 @@ export const onCreateTransaction = /* GraphQL */ `
   subscription OnCreateTransaction($owner: String, $username: String) {
     onCreateTransaction(owner: $owner, username: $username) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -478,7 +475,6 @@ export const onCreateTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;
@@ -486,7 +482,7 @@ export const onUpdateTransaction = /* GraphQL */ `
   subscription OnUpdateTransaction($owner: String, $username: String) {
     onUpdateTransaction(owner: $owner, username: $username) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -494,7 +490,6 @@ export const onUpdateTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;
@@ -502,7 +497,7 @@ export const onDeleteTransaction = /* GraphQL */ `
   subscription OnDeleteTransaction($owner: String, $username: String) {
     onDeleteTransaction(owner: $owner, username: $username) {
       id
-      Username
+      username
       due_date
       fine
       status
@@ -510,7 +505,6 @@ export const onDeleteTransaction = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      username
     }
   }
 `;

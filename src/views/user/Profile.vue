@@ -185,12 +185,12 @@
 <script>
 import { Storage } from "aws-amplify";
 import { mapActions } from "vuex";
-import userData from "@/mixins/userFields";
+import userField from "../../mixins/userFields";
 import router from "../../router";
 
 export default {
   name: "profile",
-  mixins: [userData],
+  mixins: [userField],
   data() {
     return {
       loading: false,

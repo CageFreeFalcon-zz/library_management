@@ -16,6 +16,7 @@
                   :loading="bookSearchLoading"
                   :search-input.sync="bookSearchInput"
                   clearable
+                  cache-items
                   hide-details
                   label="ISBN"
                   item-text="id"
@@ -57,7 +58,6 @@
                   solo
                   label="ISBN"
                   placeholder="ISBN"
-                  clearable
                   hide-details
                 />
               </v-col>
@@ -68,7 +68,6 @@
                   :disabled="bookIsPresent"
                   label="Title"
                   placeholder="Title"
-                  clearable
                   hide-details
                 />
               </v-col>
@@ -79,7 +78,6 @@
                   :disabled="bookIsPresent"
                   label="subject"
                   placeholder="subject"
-                  clearable
                   hide-details
                 />
               </v-col>
@@ -90,7 +88,6 @@
                   :disabled="bookIsPresent"
                   label="publisher"
                   placeholder="Publisher"
-                  clearable
                   hide-details
                 />
               </v-col>
@@ -101,7 +98,6 @@
                   :disabled="bookIsPresent"
                   label="Language"
                   placeholder="Language"
-                  clearable
                   hide-details
                 />
               </v-col>
@@ -112,7 +108,6 @@
                   :disabled="bookIsPresent"
                   label="Edition"
                   placeholder="Edition"
-                  clearable
                   hide-details
                 />
               </v-col>
@@ -120,16 +115,6 @@
             <v-row>
               <v-col cols="12">
                 <h2 class="d-inline-block mr-6">Authors</h2>
-                <v-btn
-                  color="secondary"
-                  small
-                  rounded
-                  @click="authors.push({ id: '', name: '' })"
-                  v-if="!bookIsPresent"
-                >
-                  <v-icon dark small left>mdi-plus</v-icon>
-                  Add Author
-                </v-btn>
               </v-col>
               <template v-if="bookIsPresent">
                 <v-col cols="12" md="6" v-for="(author, i) in authors" :key="i">
@@ -151,10 +136,12 @@
                   hide-details
                   hide-selected
                   multiple
+                  clearable
                   cache-items
                   item-text="name"
                   item-value="id"
                   solo
+                  chips
                   deletable-chips
                   return-object
                   label="Authors"
@@ -246,7 +233,11 @@
                         </v-list-item-title>
                       </v-list-item-content>
                       <v-list-item-action>
-                        <v-btn color="primary" @click="addewRack(i)">
+                        <v-btn
+                          color="primary"
+                          @click="addewRack(i)"
+                          :loading="buttonIsLoading"
+                        >
                           <v-icon left>mdi-plus</v-icon>
                           Add
                         </v-btn>
@@ -270,7 +261,6 @@
                 <v-btn
                   block
                   color="secondary"
-                  :loading="buttonIsLoading"
                   @click="
                     bookitems.push({
                       rackid: '',
@@ -286,7 +276,12 @@
             </v-row>
             <v-row>
               <v-col>
-                <v-btn color="primary" class="mr-5" @click="submitform">
+                <v-btn
+                  color="primary"
+                  class="mr-5"
+                  @click="submitform"
+                  :loading="buttonIsLoading"
+                >
                   Submit
                 </v-btn>
                 <v-btn text @click="steppperstep = 1">Previous</v-btn>
@@ -301,11 +296,9 @@
 
 <script>
 import { API } from "aws-amplify";
-// eslint-disable-next-line no-unused-vars
 import { listRacks, searchAuthor, searchBook } from "../../graphql/queries";
 import { getBookCustom } from "../../graphql/custom";
 import { BarcodeStatus, BookStatus } from "../../models";
-// eslint-disable-next-line no-unused-vars
 import {
   createAuthor,
   createBook,
@@ -334,7 +327,7 @@ export default {
         copies_issued: 0
       },
       authors: [{ id: "", name: "" }],
-      authorsearch: null,
+      authorsearch: "",
       bookSearchInput: "",
       searchedBook: [],
       searchedAuthors: [],
@@ -357,7 +350,9 @@ export default {
         }
       });
       this.authors.push(author);
-      this.buttonIsLoading = true;
+      this.searchedAuthors.push(author);
+      this.authorsearch = "";
+      this.buttonIsLoading = false;
     },
     async addewRack(index) {
       this.buttonIsLoading = true;
@@ -417,6 +412,7 @@ export default {
       }
     },
     async submitform() {
+      this.buttonIsLoading = true;
       let bookid = this.book.id.replaceAll("-", "");
       if (!this.bookIsPresent) {
         const {
@@ -495,6 +491,7 @@ export default {
         }
       });
       console.log(updatedbook);
+      this.buttonIsLoading = false;
     }
   },
   computed: {
@@ -505,7 +502,10 @@ export default {
   watch: {
     async bookSearchInput(newValue) {
       this.bookSearchLoading = true;
-      let s = "*" + newValue.replaceAll("-", "") + "*";
+      let s = "";
+      if (newValue) {
+        s = "*" + newValue.replaceAll("-", "") + "*";
+      }
       const {
         data: {
           searchBook: { items: searchedbook }
@@ -525,7 +525,6 @@ export default {
       this.bookSearchLoading = false;
     },
     async authorsearch(newvalue) {
-      let s = "*" + newvalue + "*";
       const {
         data: {
           searchAuthor: { items: searchedauthor }
@@ -535,7 +534,7 @@ export default {
         variables: {
           filter: {
             name: {
-              wildcard: s
+              matchPhrasePrefix: newvalue
             }
           },
           limit: 10

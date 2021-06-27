@@ -53,6 +53,8 @@ type BookItem @model
   Transactions: [Transaction] @connection(keyName: "byBookItem", fields: ["id"])
   rackID: ID!
   bookID: ID!
+  book: Book @connection(fields: ["bookID"])
+  rack: Rack @connection(fields: ["rackID"])
 }
 
 type Rack @model
@@ -78,7 +80,7 @@ type Barcode @model
   id: ID!
   status: Barcode_Status!
   bookItemID: ID
-  book: BookItem @connection(fields: ["bookItemID"])
+  bookItem: BookItem @connection(fields: ["bookItemID"])
 }
 
 type Transaction @model
@@ -95,6 +97,7 @@ type Transaction @model
   fine: Int
   status: Transaction_Status!
   bookitemID: ID!
+  book: BookItem @connection(fields: ["bookitemID"])
 }
 
 type BookAuthor @model
