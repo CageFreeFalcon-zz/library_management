@@ -195,10 +195,10 @@
         <v-stepper-content step="2">
           <v-container>
             <v-row v-for="(bookItem, i) in bookitems" :key="i">
-              <v-col cols="12" md="1" class="d-flex align-center">
+              <v-col cols="1" class="d-flex align-center">
                 <h2>{{ i + 1 }}.</h2>
               </v-col>
-              <v-col cols="12" md="5">
+              <v-col cols="11" md="5">
                 <v-autocomplete
                   v-model="bookItem.rackid"
                   :items="arrangedRack"
@@ -246,18 +246,21 @@
                   </template>
                 </v-autocomplete>
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col cols="11" md="6" offset="1" offset-md="0">
                 <v-text-field
                   v-model="bookItem.barcode"
                   solo
                   label="Barcode"
                   placeholder="Barcode"
                   hide-details
+                  type="number"
+                  append-outer-icon="mdi-delete"
+                  @click:append-outer="bookitems.splice(i, 1)"
                 />
               </v-col>
             </v-row>
             <v-row>
-              <v-col offset-md="1">
+              <v-col offset="1">
                 <v-btn
                   block
                   color="secondary"
@@ -338,40 +341,53 @@ export default {
   },
   methods: {
     async addNewAuthor() {
-      this.buttonIsLoading = true;
-      const {
-        data: { createAuthor: author }
-      } = await API.graphql({
-        query: createAuthor,
-        variables: {
-          input: {
-            name: this.authorsearch
-          }
+      if (this.authorsearch) {
+        try {
+          this.buttonIsLoading = true;
+          const {
+            data: { createAuthor: author }
+          } = await API.graphql({
+            query: createAuthor,
+            variables: {
+              input: {
+                name: this.authorsearch
+              }
+            }
+          });
+          this.authors.push(author);
+          this.searchedAuthors.push(author);
+          this.authorsearch = "";
+          this.buttonIsLoading = false;
+        } catch (e) {
+          console.log(e);
         }
-      });
-      this.authors.push(author);
-      this.searchedAuthors.push(author);
-      this.authorsearch = "";
-      this.buttonIsLoading = false;
+      }
     },
     async addewRack(index) {
-      this.buttonIsLoading = true;
-      const {
-        data: { createRack: rack }
-      } = await API.graphql({
-        query: createRack,
-        variables: {
-          input: {
-            name: this.bookitems[index].searchRackText
-          }
+      if (this.bookitems[index].searchRackText) {
+        try {
+          this.buttonIsLoading = true;
+          const {
+            data: { createRack: rack }
+          } = await API.graphql({
+            query: createRack,
+            variables: {
+              input: {
+                name: this.bookitems[index].searchRackText
+              }
+            }
+          });
+          console.log(rack);
+          this.buttonIsLoading = false;
+          this.racks.unshift(rack);
+        } catch (e) {
+          console.log(e);
         }
-      });
-      console.log(rack);
-      this.buttonIsLoading = false;
-      this.racks.unshift(rack);
+      }
     },
     addNewBook() {
       this.bookIsPresent = false;
+      this.book.id = this.bookSearchInput;
       this.book.title = "";
       this.book.subject = "";
       this.book.edition = "";
@@ -381,15 +397,15 @@ export default {
     },
     async fillremaining(bookid) {
       if (bookid) {
-        const {
-          data: { getBook: book }
-        } = await API.graphql({
-          query: getBookCustom,
-          variables: {
-            id: bookid
-          }
-        });
-        if (book) {
+        try {
+          const {
+            data: { getBook: book }
+          } = await API.graphql({
+            query: getBookCustom,
+            variables: {
+              id: bookid
+            }
+          });
           this.book.title = book.title;
           this.book.subject = book.subject;
           this.book.edition = book.edition;
@@ -400,98 +416,95 @@ export default {
             return item.author;
           });
           this.bookIsPresent = true;
-        } else {
-          this.book.title = "";
-          this.book.subject = "";
-          this.book.edition = "";
-          this.book.language = "";
-          this.book.publisher = "";
-          this.authors = [{ name: "" }];
-          this.bookIsPresent = false;
+        } catch (e) {
+          console.log(e);
         }
       }
     },
     async submitform() {
-      this.buttonIsLoading = true;
-      let bookid = this.book.id.replaceAll("-", "");
-      if (!this.bookIsPresent) {
-        const {
-          data: { createBook: createdbook }
-        } = await API.graphql({
-          query: createBook,
-          variables: {
-            input: {
-              id: bookid,
-              title: this.book.title.toLowerCase(),
-              subject: this.book.subject.toLowerCase(),
-              publisher: this.book.publisher.toLowerCase(),
-              language: this.book.language.toLowerCase(),
-              edition: this.book.edition.toLowerCase(),
-              copies_present: this.book.copies_present,
-              copies_issued: this.book.copies_issued
-            }
-          }
-        });
-        console.log(createdbook);
-        for (const author of this.authors) {
+      try {
+        this.buttonIsLoading = true;
+        let bookid = this.book.id.replaceAll("-", "");
+        if (!this.bookIsPresent) {
           const {
-            data: { createBookAuthor: matchbookauthor }
+            data: { createBook: createdbook }
           } = await API.graphql({
-            query: createBookAuthor,
+            query: createBook,
             variables: {
               input: {
-                bookID: createdbook.id,
-                authorID: author.id
+                id: bookid,
+                title: this.book.title,
+                subject: this.book.subject,
+                publisher: this.book.publisher,
+                language: this.book.language,
+                edition: this.book.edition,
+                copies_present: this.book.copies_present,
+                copies_issued: this.book.copies_issued
               }
             }
           });
-          console.log(matchbookauthor);
+          for (const author of this.authors) {
+            await API.graphql({
+              query: createBookAuthor,
+              variables: {
+                input: {
+                  bookID: createdbook.id,
+                  authorID: author.id
+                }
+              }
+            });
+          }
         }
-      }
-      for (const item of this.bookitems) {
-        const {
-          data: { createBookItem: BookItem }
-        } = await API.graphql({
-          query: createBookItem,
+        for (const item of this.bookitems) {
+          const {
+            data: { createBookItem: BookItem }
+          } = await API.graphql({
+            query: createBookItem,
+            variables: {
+              input: {
+                status: BookStatus.NOTISSUED,
+                rackID: item.rackid,
+                bookID: bookid
+              }
+            }
+          });
+          await API.graphql({
+            query: updateBarcode,
+            variables: {
+              input: {
+                id: item.barcode,
+                status: BarcodeStatus.USED,
+                bookItemID: BookItem.id
+              }
+            }
+          });
+        }
+        await API.graphql({
+          query: updateBook,
           variables: {
             input: {
-              status: BookStatus.NOTISSUED,
-              rackID: item.rackid,
-              bookID: bookid
+              id: this.book.id,
+              copies_present: this.bookitems.length + this.book.copies_present
             }
           }
         });
-        console.log(BookItem);
-        console.log(item.barcode);
-        console.log(BarcodeStatus.USED);
-        console.log(BookItem.id);
-        const {
-          data: { updateBarcode: updatedbarcode }
-        } = await API.graphql({
-          query: updateBarcode,
-          variables: {
-            input: {
-              id: item.barcode,
-              status: BarcodeStatus.USED,
-              bookItemID: BookItem.id
-            }
-          }
-        });
-        console.log(updatedbarcode);
+        this.buttonIsLoading = false;
+        this.bookIsPresent = true;
+        this.book = {
+          id: "",
+          title: "",
+          subject: "",
+          publisher: "",
+          language: "",
+          edition: "",
+          copies_present: 0,
+          copies_issued: 0
+        };
+        this.authors = [{ id: "", name: "" }];
+        this.bookitems = [{ rackid: "", barcodeid: "", searchRackText: "" }];
+      } catch (e) {
+        console.log(e);
       }
-      const {
-        data: { updateBook: updatedbook }
-      } = await API.graphql({
-        query: updateBook,
-        variables: {
-          input: {
-            id: this.book.id,
-            copies_present: this.bookitems.length + this.book.copies_present
-          }
-        }
-      });
-      console.log(updatedbook);
-      this.buttonIsLoading = false;
     }
   },
   computed: {
@@ -501,30 +514,88 @@ export default {
   },
   watch: {
     async bookSearchInput(newValue) {
-      this.bookSearchLoading = true;
-      let s = "";
+      let s = "*";
       if (newValue) {
-        s = "*" + newValue.replaceAll("-", "") + "*";
+        s = newValue.replaceAll("-", "") + "*";
+        this.bookSearchInput = newValue.replaceAll("-", "");
       }
-      const {
-        data: {
-          searchBook: { items: searchedbook }
-        }
-      } = await API.graphql({
-        query: searchBook,
-        variables: {
-          filter: {
-            id: {
-              wildcard: s
-            }
-          },
-          limit: 10
-        }
-      });
-      this.searchedBook = searchedbook;
-      this.bookSearchLoading = false;
+      if (this.bookSearchInput && s.length !== 14) {
+        return;
+      }
+      try {
+        this.bookSearchLoading = true;
+        console.log("searching");
+        const {
+          data: {
+            searchBook: { items: searchedbook }
+          }
+        } = await API.graphql({
+          query: searchBook,
+          variables: {
+            filter: {
+              id: {
+                wildcard: s
+              }
+            },
+            sort: { field: "title", direction: "asc" },
+            limit: 10
+          }
+        });
+        this.searchedBook = searchedbook;
+        this.bookSearchLoading = false;
+      } catch (e) {
+        console.log(e);
+      }
     },
     async authorsearch(newvalue) {
+      if (newvalue) {
+        try {
+          const {
+            data: {
+              searchAuthor: { items: searchedauthor }
+            }
+          } = await API.graphql({
+            query: searchAuthor,
+            variables: {
+              filter: {
+                name: {
+                  matchPhrasePrefix: newvalue
+                }
+              },
+              sort: { field: "name", direction: "asc" },
+              limit: 10
+            }
+          });
+          console.log(searchedauthor);
+          this.searchedAuthors = searchedauthor;
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  },
+  async mounted() {
+    let token = null;
+    try {
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const {
+          data: {
+            listRacks: { items: racks, nextToken }
+          }
+        } = await API.graphql({
+          query: listRacks,
+          variables: {
+            nextToken: token
+          }
+        });
+        this.racks.push(...racks);
+        if (!nextToken) {
+          break;
+        } else {
+          token = nextToken;
+        }
+      }
       const {
         data: {
           searchAuthor: { items: searchedauthor }
@@ -532,38 +603,13 @@ export default {
       } = await API.graphql({
         query: searchAuthor,
         variables: {
-          filter: {
-            name: {
-              matchPhrasePrefix: newvalue
-            }
-          },
+          sort: { field: "name", direction: "asc" },
           limit: 10
         }
       });
-      console.log(searchedauthor);
       this.searchedAuthors = searchedauthor;
-    }
-  },
-  async mounted() {
-    let token = null;
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const {
-        data: {
-          listRacks: { items: racks, nextToken }
-        }
-      } = await API.graphql({
-        query: listRacks,
-        variables: {
-          nextToken: token
-        }
-      });
-      this.racks.push(...racks);
-      if (!nextToken) {
-        break;
-      } else {
-        token = nextToken;
-      }
+    } catch (e) {
+      console.log(e);
     }
   }
 };

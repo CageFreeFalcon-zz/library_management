@@ -25,7 +25,8 @@ export const getBarcodeCustom = /* GraphQL */ `
     getBarcode(id: $id) {
       id
       status
-      bookitem {
+      bookItem {
+        id
         book {
           id
           title

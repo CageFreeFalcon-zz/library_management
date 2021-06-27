@@ -14,8 +14,8 @@
             class="mx-4"
             placeholder="Search"
             label="Search"
-            append-icon="mdi-account-search"
-            @click:append="searchclick"
+            append-outer-icon="mdi-account-search"
+            @click:append-outer="searchclick"
           />
         </v-col>
       </v-row>

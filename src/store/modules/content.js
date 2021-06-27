@@ -106,9 +106,6 @@ export default {
         });
       }
     },
-    async addBooks(context, payload) {
-      return payload;
-    },
     async generateBarcodes(context) {
       let barcodes = [];
       let token = null;

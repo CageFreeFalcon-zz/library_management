@@ -6,27 +6,29 @@
           <h1>Books List</h1>
         </v-col>
         <v-col>
-          <v-autocomplete
-            v-model="select"
-            :loading="true"
-            :items="items"
-            :search-input.sync="search"
-            cache-items
+          <v-text-field
             solo
-            hide-no-data
             hide-details
+            rounded
+            v-model="search"
             class="mx-4"
-            label="Search a book here"
-            rounded="pill"
-          ></v-autocomplete>
+            placeholder="Search Book"
+            label="Search Book"
+            append-outer-icon="mdi-account-search"
+            @click:append-outer="searchclick"
+          />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
           <v-data-table
             :headers="headers"
-            :items="desserts"
+            :items="books"
+            :loading="loading"
             class="elevation-1"
+            disable-sort
+            disable-pagination
+            hide-default-footer
           >
             <template v-slot:header.name="{ header }">
               {{ header.text.toUpperCase() }}
@@ -39,100 +41,48 @@
 </template>
 
 <script>
+import { API } from "aws-amplify";
+// eslint-disable-next-line no-unused-vars
+import { listBooks, searchBook } from "../../graphql/queries";
+
 export default {
   name: "List",
   data: () => ({
+    search: null,
+    loading: false,
+    token: null,
     headers: [
-      { text: "Dessert (100g serving)", align: "start", value: "name" },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
-      { text: "Iron (%)", value: "iron" }
+      { text: "Title", align: "start", value: "title" },
+      { text: "Publisher", value: "publisher" },
+      { text: "Edition", value: "edition" },
+      { text: "Subject", value: "subject" },
+      { text: "Actions", value: "actions" }
     ],
-    desserts: [
-      {
-        name: "Frozen Yogurt",
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: "1%"
-      },
-      {
-        name: "Ice cream sandwich",
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        iron: "1%"
-      },
-      {
-        name: "Eclair",
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        iron: "7%"
-      },
-      {
-        name: "Cupcake",
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        iron: "8%"
-      },
-      {
-        name: "Gingerbread",
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        iron: "16%"
-      },
-      {
-        name: "Jelly bean",
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        iron: "0%"
-      },
-      {
-        name: "Lollipop",
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        iron: "2%"
-      },
-      {
-        name: "Honeycomb",
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        iron: "45%"
-      },
-      {
-        name: "Donut",
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        iron: "22%"
-      },
-      {
-        name: "KitKat",
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        iron: "6%"
-      }
-    ]
-  })
+    books: []
+  }),
+  methods: {
+    searchclick() {}
+  },
+  async mounted() {
+    try {
+      this.loading = true;
+      const {
+        data: {
+          listBooks: { items: books, nextToken }
+        }
+      } = await API.graphql({
+        query: listBooks,
+        variables: {
+          limit: 10
+        }
+      });
+      this.token = nextToken;
+      this.books = books;
+      this.loading = false;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 };
 </script>
 

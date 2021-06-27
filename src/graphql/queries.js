@@ -192,6 +192,33 @@ export const getBookItem = /* GraphQL */ `
       bookID
       createdAt
       updatedAt
+      book {
+        id
+        title
+        subject
+        publisher
+        language
+        edition
+        copies_present
+        copies_issued
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+        Authors {
+          nextToken
+        }
+      }
+      rack {
+        id
+        name
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+      }
       Transactions {
         items {
           id
@@ -223,6 +250,24 @@ export const listBookItems = /* GraphQL */ `
         bookID
         createdAt
         updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
         Transactions {
           nextToken
         }
@@ -349,13 +394,31 @@ export const getBarcode = /* GraphQL */ `
       bookItemID
       createdAt
       updatedAt
-      book {
+      bookItem {
         id
         status
         rackID
         bookID
         createdAt
         updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
         Transactions {
           nextToken
         }
@@ -376,7 +439,7 @@ export const listBarcodes = /* GraphQL */ `
         bookItemID
         createdAt
         updatedAt
-        book {
+        bookItem {
           id
           status
           rackID
@@ -400,6 +463,35 @@ export const getTransaction = /* GraphQL */ `
       bookitemID
       createdAt
       updatedAt
+      book {
+        id
+        status
+        rackID
+        bookID
+        createdAt
+        updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        Transactions {
+          nextToken
+        }
+      }
       owner
     }
   }
@@ -420,6 +512,14 @@ export const listTransactions = /* GraphQL */ `
         bookitemID
         createdAt
         updatedAt
+        book {
+          id
+          status
+          rackID
+          bookID
+          createdAt
+          updatedAt
+        }
         owner
       }
       nextToken
@@ -450,6 +550,14 @@ export const transactionByUser = /* GraphQL */ `
         bookitemID
         createdAt
         updatedAt
+        book {
+          id
+          status
+          rackID
+          bookID
+          createdAt
+          updatedAt
+        }
         owner
       }
       nextToken

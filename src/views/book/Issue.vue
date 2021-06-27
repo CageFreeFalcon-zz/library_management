@@ -82,25 +82,23 @@
           Book List
         </v-stepper-step>
         <v-stepper-content step="2">
-          <v-container>
+          <v-container class="userdata">
             <v-row v-for="(transaction, i) in transactions" :key="i">
-              <v-col cols="12" v-if="transaction.book">
-                <h3>{{ transaction.book.title }}</h3>
-              </v-col>
-              <v-col cols="12" md="1" class="d-flex align-center">
+              <v-col cols="1" class="d-flex align-center">
                 <h2>{{ i + 1 }}.</h2>
               </v-col>
-              <v-col cols="12" md="5">
+              <v-col cols="11" md="5">
                 <v-text-field
                   v-model="transaction.barcode"
                   solo
                   label="Barcode"
                   placeholder="Barcode"
                   hide-details
+                  type="number"
                   @blur="getBookOfBarcode(i)"
                 />
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col cols="11" md="6" offset="1" offset-md="0">
                 <v-menu
                   v-model="transaction.menuisopen"
                   :close-on-content-click="false"
@@ -117,6 +115,8 @@
                       hide-details
                       placeholder="Return Date"
                       append-icon="mdi-calendar"
+                      append-outer-icon="mdi-delete"
+                      @click:append-outer="transactions.splice(i, 1)"
                       v-bind="attrs"
                       v-on="on"
                     ></v-text-field>
@@ -128,9 +128,15 @@
                   ></v-date-picker>
                 </v-menu>
               </v-col>
+              <v-col cols="11" md="12" offset="1" v-if="transaction.book">
+                <h2>{{ transaction.book.title }}</h2>
+                <h3>{{ transaction.book.subject }}</h3>
+                <h3>Publisher - {{ transaction.book.publisher }}</h3>
+                <h3>Published on - {{ transaction.book.edition }}</h3>
+              </v-col>
             </v-row>
             <v-row>
-              <v-col offset-md="1">
+              <v-col cols="11" offset="1">
                 <v-btn
                   block
                   color="secondary"
@@ -139,7 +145,8 @@
                       barcode: null,
                       returnDate: null,
                       book: null,
-                      menuisopen: false
+                      menuisopen: false,
+                      bookitemid: null
                     })
                   "
                 >
@@ -173,13 +180,19 @@ export default {
   name: "issue",
   data() {
     return {
-      stepperstep: 2,
+      stepperstep: 1,
       username: "",
       user: null,
       userimage: null,
       userloading: false,
       transactions: [
-        { barcode: null, returnDate: null, book: null, menuisopen: false }
+        {
+          barcode: null,
+          returnDate: null,
+          book: null,
+          menuisopen: false,
+          bookitemid: null
+        }
       ]
     };
   },
@@ -187,38 +200,53 @@ export default {
   methods: {
     ...mapActions(["adminQueries"]),
     async getuser() {
-      this.userloading = true;
-      try {
-        const userdata = await this.adminQueries({
-          type: "get",
-          path: "/getUser",
-          params: { username: this.username }
-        });
-        let user = this.mapUserAttributes(userdata);
-        this.userimage = await Storage.get(user.picture);
-        this.user = user;
-      } catch (e) {
-        console.log(e);
+      if (this.username.length === 36) {
+        this.userloading = true;
+        try {
+          const userdata = await this.adminQueries({
+            type: "get",
+            path: "/getUser",
+            params: { username: this.username }
+          });
+          let user = this.mapUserAttributes(userdata);
+          this.userimage = await Storage.get(user.picture);
+          this.user = user;
+        } catch (e) {
+          console.log(e);
+        }
+        this.userloading = false;
       }
-      this.userloading = false;
     },
     async getBookOfBarcode(index) {
-      let {
-        data: { getBarcode: barcodedata }
-      } = await API.graphql({
-        query: getBarcodeCustom,
-        variables: {
-          id: this.transactions[index].barcode
+      if (this.transactions[index].barcode) {
+        try {
+          let {
+            data: {
+              getBarcode: { bookItem: bookitemdata }
+            }
+          } = await API.graphql({
+            query: getBarcodeCustom,
+            variables: {
+              id: this.transactions[index].barcode
+            }
+          });
+          console.log(bookitemdata);
+          this.transactions[index].bookitemid = bookitemdata.id;
+          this.transactions[index].book = bookitemdata.book;
+        } catch (e) {
+          console.log(e);
         }
-      });
-      console.log(barcodedata);
-      this.transactions[index].book = barcodedata.bookItem.book;
+      }
     }
   },
   async mounted() {
     if (this.$route.query.u) {
       this.username = this.$route.query.u;
-      await this.getuser();
+      try {
+        await this.getuser();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };

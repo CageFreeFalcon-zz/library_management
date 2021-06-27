@@ -30,7 +30,7 @@
         },
         "adminqueriesmodules": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
-          "s3Key": "amplify-builds/adminqueriesmodules-LambdaLayerVersion69f597d5-build.zip"
+          "s3Key": "amplify-builds/adminqueriesmodules-LambdaLayerVersion4a2c3c4e-build.zip"
         },
         "CreateLibraryCardModules": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
@@ -46,11 +46,11 @@
         },
         "qrCodeModule": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
-          "s3Key": "amplify-builds/qrCodeModule-LambdaLayerVersion74e244c2-build.zip"
+          "s3Key": "amplify-builds/qrCodeModule-LambdaLayerVersion5c65fe03-build.zip"
         },
         "s3ClientModule": {
           "deploymentBucketName": "amplify-librarymanagement-dev-122946-deployment",
-          "s3Key": "amplify-builds/s3ClientModule-LambdaLayerVersion96877a6f-build.zip"
+          "s3Key": "amplify-builds/s3ClientModule-LambdaLayerVersion45ffc147-build.zip"
         }
       }
     },

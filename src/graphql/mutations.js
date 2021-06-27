@@ -235,6 +235,33 @@ export const createBookItem = /* GraphQL */ `
       bookID
       createdAt
       updatedAt
+      book {
+        id
+        title
+        subject
+        publisher
+        language
+        edition
+        copies_present
+        copies_issued
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+        Authors {
+          nextToken
+        }
+      }
+      rack {
+        id
+        name
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+      }
       Transactions {
         items {
           id
@@ -264,6 +291,33 @@ export const updateBookItem = /* GraphQL */ `
       bookID
       createdAt
       updatedAt
+      book {
+        id
+        title
+        subject
+        publisher
+        language
+        edition
+        copies_present
+        copies_issued
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+        Authors {
+          nextToken
+        }
+      }
+      rack {
+        id
+        name
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+      }
       Transactions {
         items {
           id
@@ -293,6 +347,33 @@ export const deleteBookItem = /* GraphQL */ `
       bookID
       createdAt
       updatedAt
+      book {
+        id
+        title
+        subject
+        publisher
+        language
+        edition
+        copies_present
+        copies_issued
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+        Authors {
+          nextToken
+        }
+      }
+      rack {
+        id
+        name
+        createdAt
+        updatedAt
+        BookItems {
+          nextToken
+        }
+      }
       Transactions {
         items {
           id
@@ -462,13 +543,31 @@ export const createBarcode = /* GraphQL */ `
       bookItemID
       createdAt
       updatedAt
-      book {
+      bookItem {
         id
         status
         rackID
         bookID
         createdAt
         updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
         Transactions {
           nextToken
         }
@@ -487,13 +586,31 @@ export const updateBarcode = /* GraphQL */ `
       bookItemID
       createdAt
       updatedAt
-      book {
+      bookItem {
         id
         status
         rackID
         bookID
         createdAt
         updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
         Transactions {
           nextToken
         }
@@ -512,13 +629,31 @@ export const deleteBarcode = /* GraphQL */ `
       bookItemID
       createdAt
       updatedAt
-      book {
+      bookItem {
         id
         status
         rackID
         bookID
         createdAt
         updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
         Transactions {
           nextToken
         }
@@ -540,6 +675,35 @@ export const createTransaction = /* GraphQL */ `
       bookitemID
       createdAt
       updatedAt
+      book {
+        id
+        status
+        rackID
+        bookID
+        createdAt
+        updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        Transactions {
+          nextToken
+        }
+      }
       owner
     }
   }
@@ -558,6 +722,35 @@ export const updateTransaction = /* GraphQL */ `
       bookitemID
       createdAt
       updatedAt
+      book {
+        id
+        status
+        rackID
+        bookID
+        createdAt
+        updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        Transactions {
+          nextToken
+        }
+      }
       owner
     }
   }
@@ -576,6 +769,35 @@ export const deleteTransaction = /* GraphQL */ `
       bookitemID
       createdAt
       updatedAt
+      book {
+        id
+        status
+        rackID
+        bookID
+        createdAt
+        updatedAt
+        book {
+          id
+          title
+          subject
+          publisher
+          language
+          edition
+          copies_present
+          copies_issued
+          createdAt
+          updatedAt
+        }
+        rack {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        Transactions {
+          nextToken
+        }
+      }
       owner
     }
   }
