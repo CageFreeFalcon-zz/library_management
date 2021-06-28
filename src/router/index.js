@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Auth from "../views/Auth";
+import Auth from "../views/AuthLayout";
 import { Auth as auth } from "aws-amplify";
 import MyAppBar from "../components/MyAppBar";
 import MyNavigationDrawer from "../components/MyNavigationDrawer";

@@ -14,10 +14,9 @@
         :src="logo"
         transition="scale-transition"
       />
-      <div
-        class="text-h5 text--lighten-3 text-center"
-        v-text="'Username'"
-      ></div>
+      <div class="text-h5 text--lighten-3 text-center font-weight-bold">
+        {{ username }}
+      </div>
       <v-divider />
     </template>
 
@@ -96,12 +95,14 @@
 <script>
 import Logo from "../assets/images/logo.svg";
 import { mapActions, mapGetters } from "vuex";
+import { Auth } from "aws-amplify";
 
 export default {
   name: "MyNavigationDrawer",
   data() {
     return {
-      logo: Logo
+      logo: Logo,
+      username: null
     };
   },
   computed: {
@@ -120,6 +121,12 @@ export default {
   },
   methods: {
     ...mapActions(["signOut"])
+  },
+  async mounted() {
+    let user = await Auth.currentAuthenticatedUser();
+    // console.log(user.attributes);
+    this.username = user.attributes.name;
+    // this.$swal(user);
   }
 };
 </script>

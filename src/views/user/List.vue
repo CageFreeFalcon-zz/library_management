@@ -30,6 +30,7 @@
             loading-text="Please wait......"
             hide-default-footer
             disable-pagination
+            @click:row="viewprofile($event)"
           >
             <template v-slot:top>
               <v-tabs v-model="tab">
@@ -53,26 +54,6 @@
                   <v-icon>mdi-account-cancel</v-icon>
                 </v-btn>
               </template>
-
-              <v-menu bottom left rounded="lg" class="d-inline">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn text icon v-bind="attrs" v-on="on">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-
-                <v-list dense>
-                  <v-list-item link :to="'/users/profile/' + item.sub">
-                    <v-list-item-title>Profile</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item link v-if="item.Enabled">
-                    <v-list-item-title>Disable</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item link v-else>
-                    <v-list-item-title>Enable</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </template>
 
             <template v-slot:footer>
@@ -93,6 +74,7 @@
 <script>
 import { mapActions } from "vuex";
 import userData from "@/mixins/userFields";
+import router from "../../router";
 
 export default {
   name: "List",
@@ -200,6 +182,9 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    viewprofile(userdata) {
+      router.push("/users/profile/" + userdata.sub);
     }
   },
   computed: {

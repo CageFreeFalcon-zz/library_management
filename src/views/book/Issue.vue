@@ -95,7 +95,7 @@
                   placeholder="Barcode"
                   hide-details
                   type="number"
-                  @blur="getBookOfBarcode(i)"
+                  @input="getBookOfBarcode(i)"
                 />
               </v-col>
               <v-col cols="11" md="6" offset="1" offset-md="0">
@@ -175,6 +175,7 @@ import { mapActions } from "vuex";
 import userFields from "../../mixins/userFields";
 import { API, Storage } from "aws-amplify";
 import { getBarcodeCustom } from "../../graphql/custom";
+import debounce from "debounce";
 
 export default {
   name: "issue",
@@ -219,6 +220,8 @@ export default {
     },
     async getBookOfBarcode(index) {
       if (this.transactions[index].barcode) {
+        console.log("debounced");
+        console.log(this.transactions[index].barcode);
         try {
           let {
             data: {
@@ -248,6 +251,7 @@ export default {
         console.log(e);
       }
     }
+    this.getBookOfBarcode = debounce(this.getBookOfBarcode, 1000);
   }
 };
 </script>
