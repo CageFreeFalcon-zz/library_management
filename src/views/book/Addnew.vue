@@ -350,7 +350,7 @@ export default {
             query: createAuthor,
             variables: {
               input: {
-                name: this.authorsearch
+                name: this.authorsearch.replaceAll(".", "")
               }
             }
           });
@@ -438,8 +438,8 @@ export default {
                 publisher: this.book.publisher,
                 language: this.book.language,
                 edition: this.book.edition,
-                copies_present: this.book.copies_present,
-                copies_issued: this.book.copies_issued
+                copies_present: 0,
+                copies_issued: 0
               }
             }
           });

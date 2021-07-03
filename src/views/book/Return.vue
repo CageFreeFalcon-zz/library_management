@@ -1,7 +1,7 @@
 <template>
   <MainBackground>
     <v-container>
-      <h1>Issue book</h1>
+      <h1>Return book</h1>
       <v-stepper v-model="stepperstep" vertical>
         <v-stepper-step :complete="stepperstep > 1" step="1">
           User Details
@@ -78,56 +78,26 @@
         </v-stepper-step>
         <v-stepper-content step="2">
           <v-container class="userdata">
-            <v-row v-for="(transaction, i) in transactions" :key="i">
+            <v-row v-for="(book, i) in books" :key="i">
               <v-col cols="1" class="d-flex align-center">
                 <h2>{{ i + 1 }}.</h2>
               </v-col>
               <v-col cols="11" md="5">
                 <v-text-field
-                  v-model="transaction.barcode"
+                  v-model="book.barcode"
                   solo
                   label="Barcode"
                   placeholder="Barcode"
                   hide-details
                   type="number"
-                  @input="getBookOfBarcode(i)"
+                  @input="getTransactionOfBarcode(i)"
                 />
               </v-col>
-              <v-col cols="11" md="6" offset="1" offset-md="0">
-                <v-menu
-                  v-model="transaction.CalenderIsOpen"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  max-width="290px"
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="transaction.returnDate"
-                      label="Return Date"
-                      solo
-                      hide-details
-                      placeholder="Return Date"
-                      append-icon="mdi-calendar"
-                      append-outer-icon="mdi-delete"
-                      @click:append-outer="transactions.splice(i, 1)"
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="transaction.returnDate"
-                    no-title
-                    @input="transaction.CalenderIsOpen = false"
-                  ></v-date-picker>
-                </v-menu>
-              </v-col>
-              <v-col cols="11" md="12" offset="1" v-if="transaction.book">
-                <h2>{{ transaction.book.title }}</h2>
-                <h3>{{ transaction.book.subject }}</h3>
-                <h3>Publisher - {{ transaction.book.publisher }}</h3>
-                <h3>Published on - {{ transaction.book.edition }}</h3>
+              <v-col cols="11" md="12" offset="1" v-if="book.data">
+                <h2>{{ book.data.bookItem.book.title }}</h2>
+                <h3>{{ book.data.bookItem.book.subject }}</h3>
+                <h3>Publisher - {{ book.data.bookItem.book.publisher }}</h3>
+                <h3>Published on - {{ book.data.bookItem.book.edition }}</h3>
               </v-col>
             </v-row>
             <v-row>
@@ -135,15 +105,7 @@
                 <v-btn
                   block
                   color="secondary"
-                  @click="
-                    transactions.push({
-                      barcode: null,
-                      returnDate: null,
-                      book: null,
-                      menuisopen: false,
-                      bookitemid: null
-                    })
-                  "
+                  @click="books.push({ barcode: '', data: null })"
                 >
                   <v-icon left>mdi-plus</v-icon>
                   Add Book
@@ -155,7 +117,7 @@
                 <v-btn
                   color="primary"
                   class="mr-5"
-                  @click="issieBook"
+                  @click="returnBook"
                   :loading="sending"
                 >
                   Submit
@@ -172,19 +134,19 @@
 
 <script>
 import { mapActions } from "vuex";
-import userFields from "../../mixins/userFields";
 import { API, Storage } from "aws-amplify";
-import { BookStatus, TransactionStatus } from "../../models";
-import { getBarcodeCustom } from "../../graphql/custom";
+import userFields from "../../mixins/userFields";
 import debounce from "debounce";
+import { getBarcodeCustom } from "../../graphql/custom";
+import { BookStatus, TransactionStatus } from "../../models";
 import {
-  createTransaction,
   updateBook,
-  updateBookItem
+  updateBookItem,
+  updateTransaction
 } from "../../graphql/mutations";
 
 export default {
-  name: "issue",
+  name: "Return",
   data() {
     return {
       stepperstep: 1,
@@ -192,23 +154,23 @@ export default {
       user: null,
       userimage: null,
       userloading: false,
-      sending: false,
-      transactions: [
-        {
-          barcode: null,
-          returnDate: null,
-          book: null,
-          CalenderIsOpen: false,
-          bookitemid: null
-        }
-      ]
+      books: [{ barcode: "", data: null }],
+      sending: false
     };
   },
   mixins: [userFields],
   methods: {
     ...mapActions(["adminQueries"]),
+    reset() {
+      this.stepperstep = 1;
+      this.username = "";
+      this.user = null;
+      this.userimage = null;
+      this.userloading = false;
+      this.books = [{ barcode: "", data: null }];
+      this.sending = false;
+    },
     async getuser() {
-      console.log(this.username);
       if (this.username.length === 36) {
         this.userloading = true;
         try {
@@ -226,50 +188,31 @@ export default {
         this.userloading = false;
       }
     },
-    async getBookOfBarcode(index) {
-      if (this.transactions[index].barcode) {
-        console.log(this.transactions[index].barcode);
-        try {
-          let {
-            data: {
-              getBarcode: { bookItem: bookitemdata }
-            }
-          } = await API.graphql({
-            query: getBarcodeCustom,
-            variables: {
-              id: this.transactions[index].barcode
-            }
-          });
-          console.log(bookitemdata);
-          this.transactions[index].bookitemid = bookitemdata.id;
-          this.transactions[index].book = bookitemdata.book;
-        } catch (e) {
-          this.$swal("Error", JSON.stringify(e), "error");
-        }
+    async getTransactionOfBarcode(index) {
+      try {
+        let {
+          data: { getBarcode: barcode }
+        } = await API.graphql({
+          query: getBarcodeCustom,
+          variables: {
+            id: this.books[index].barcode
+          }
+        });
+        this.books[index].data = barcode;
+      } catch (e) {
+        this.$swal("Error", JSON.stringify(e), "error");
       }
     },
-    async issieBook() {
+    async returnBook() {
       this.sending = true;
-      for (const transaction of this.transactions) {
-        try {
+      try {
+        for (const book of this.books) {
           await API.graphql({
-            query: createTransaction,
+            query: updateTransaction,
             variables: {
               input: {
-                username: this.username,
-                due_date: transaction.returnDate,
-                fine: 0,
-                status: TransactionStatus.ISSUED,
-                bookitemID: transaction.bookitemid
-              }
-            }
-          });
-          await API.graphql({
-            query: updateBook,
-            variables: {
-              input: {
-                id: transaction.book.id,
-                copies_issued: +transaction.book.copies_issued + 1
+                id: book.data.bookItem.Transactions.items[0].id,
+                status: TransactionStatus.RETURNED
               }
             }
           });
@@ -277,31 +220,27 @@ export default {
             query: updateBookItem,
             variables: {
               input: {
-                id: transaction.bookitemid,
-                status: BookStatus.ISSUED
+                id: book.data.bookItem.id,
+                status: BookStatus.NOTISSUED
               }
             }
           });
-          this.$swal("Success", "Book Successfully Issued", "success");
-        } catch (e) {
-          this.$swal("Error", JSON.stringify(e), "error");
+          await API.graphql({
+            query: updateBook,
+            variables: {
+              input: {
+                id: book.data.bookItem.book.id,
+                copies_issued: book.data.bookItem.book.copies_issued - 1
+              }
+            }
+          });
         }
+        this.$swal("Success", "Return Successfully", "success");
+        this.reset();
+      } catch (e) {
+        this.$swal("Success", "Return Successfully", "success");
       }
-      this.stepperstep = 1;
-      this.username = "";
-      this.user = null;
-      this.userimage = null;
-      this.userloading = false;
       this.sending = false;
-      this.transactions = [
-        {
-          barcode: null,
-          returnDate: null,
-          book: null,
-          CalenderIsOpen: false,
-          bookitemid: null
-        }
-      ];
     }
   },
   async mounted() {
@@ -314,22 +253,9 @@ export default {
       }
     }
     this.getuser = debounce(this.getuser, 1000);
-    this.getBookOfBarcode = debounce(this.getBookOfBarcode, 1000);
+    this.getTransactionOfBarcode = debounce(this.getTransactionOfBarcode, 1000);
   }
 };
 </script>
 
-<style scoped lang="scss">
-.userdata {
-  color: #205072;
-
-  .name {
-    font-size: 4rem;
-    line-height: 4rem;
-  }
-
-  .fname {
-    font-size: 2rem;
-  }
-}
-</style>
+<style scoped></style>

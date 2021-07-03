@@ -5,8 +5,12 @@
         <v-col cols="12" md="auto" order-md="2">
           <v-row>
             <v-col cols="12" sm="auto" md="12">
-              <v-avatar rounded size="200" class="ma-auto d-block">
-                <v-img :src="dp" />
+              <v-avatar
+                rounded
+                size="200"
+                class="ma-auto d-block overflow-visible"
+              >
+                <v-img :src="dp" class="elevation-10" />
               </v-avatar>
             </v-col>
             <v-col cols="12" sm="auto" md="12" class="d-flex flex-column">

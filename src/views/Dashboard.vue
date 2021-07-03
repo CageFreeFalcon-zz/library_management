@@ -1,56 +1,108 @@
 <template>
   <MainBackground>
     <v-container class="dashboard d-flex flex-column flex-grow-0 h-100-p">
-      <v-row class="flex-grow-0">
-        <v-col cols="4">
-          <v-card rounded="xl" elevation="5">
-            <v-card-text class="p-relative text-body-1" style="color: #205072">
-              <h4>Books</h4>
-              <h1>Counts</h1>
-              <h1 class="text-right mt-3">3346</h1>
-              <router-link
-                to="/books/list"
-                class="p-absolute quarter_icon text-decoration-none"
-              >
-                <v-icon dark size="sm">mdi-plus</v-icon>
-              </router-link>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="4">
-          <v-card rounded="xl" elevation="5">
-            <v-card-text class="p-relative text-body-1" style="color: #205072">
-              <h4>Books</h4>
-              <h1>Issued</h1>
-              <h1 class="text-right mt-3">3346</h1>
-              <router-link
-                to="/books/issue"
-                class="p-absolute quarter_icon text-decoration-none"
-              >
-                <v-icon dark size="sm">mdi-plus</v-icon>
-              </router-link>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="4">
-          <v-card rounded="xl" elevation="5">
-            <v-card-text class="p-relative text-body-1" style="color: #205072">
-              <h4>Users</h4>
-              <h1>Registered</h1>
-              <h1 class="text-right mt-3">3346</h1>
-              <router-link
-                to="/users"
-                class="p-absolute quarter_icon text-decoration-none"
-              >
-                <v-icon dark size="sm">mdi-account-search-outline</v-icon>
-              </router-link>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+      <!--      <v-row class="flex-grow-0">-->
+      <!--        <v-col cols="4">-->
+      <!--          <v-card rounded="xl" elevation="5">-->
+      <!--            <v-card-text class="p-relative text-body-1" style="color: #205072">-->
+      <!--              <h4>Books</h4>-->
+      <!--              <h1>Counts</h1>-->
+      <!--              <h1 class="text-right mt-3">3346</h1>-->
+      <!--              <router-link-->
+      <!--                to="/books/list"-->
+      <!--                class="p-absolute quarter_icon text-decoration-none"-->
+      <!--              >-->
+      <!--                <v-icon dark size="sm">mdi-plus</v-icon>-->
+      <!--              </router-link>-->
+      <!--            </v-card-text>-->
+      <!--          </v-card>-->
+      <!--        </v-col>-->
+      <!--        <v-col cols="4">-->
+      <!--          <v-card rounded="xl" elevation="5">-->
+      <!--            <v-card-text class="p-relative text-body-1" style="color: #205072">-->
+      <!--              <h4>Books</h4>-->
+      <!--              <h1>Issued</h1>-->
+      <!--              <h1 class="text-right mt-3">3346</h1>-->
+      <!--              <router-link-->
+      <!--                to="/books/issue"-->
+      <!--                class="p-absolute quarter_icon text-decoration-none"-->
+      <!--              >-->
+      <!--                <v-icon dark size="sm">mdi-plus</v-icon>-->
+      <!--              </router-link>-->
+      <!--            </v-card-text>-->
+      <!--          </v-card>-->
+      <!--        </v-col>-->
+      <!--        <v-col cols="4">-->
+      <!--          <v-card rounded="xl" elevation="5">-->
+      <!--            <v-card-text class="p-relative text-body-1" style="color: #205072">-->
+      <!--              <h4>Users</h4>-->
+      <!--              <h1>Registered</h1>-->
+      <!--              <h1 class="text-right mt-3">3346</h1>-->
+      <!--              <router-link-->
+      <!--                to="/users"-->
+      <!--                class="p-absolute quarter_icon text-decoration-none"-->
+      <!--              >-->
+      <!--                <v-icon dark size="sm">mdi-account-search-outline</v-icon>-->
+      <!--              </router-link>-->
+      <!--            </v-card-text>-->
+      <!--          </v-card>-->
+      <!--        </v-col>-->
+      <!--      </v-row>-->
       <v-row>
         <v-col cols="6" class="align-self-stretch d-flex overflow-hidden">
-          <v-img src="@/assets/images/dashboard_image.svg" contain></v-img>
+          <v-row class="flex-column">
+            <v-col class="d-flex">
+              <v-card rounded="xl" elevation="5" width="100%">
+                <v-card-text
+                  class="p-relative text-body-1"
+                  style="color: #205072"
+                >
+                  <h4>Books</h4>
+                  <h1>Counts</h1>
+                  <router-link
+                    to="/books/list"
+                    class="p-absolute quarter_icon text-decoration-none"
+                  >
+                    <v-icon dark size="sm">mdi-plus</v-icon>
+                  </router-link>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col class="d-flex">
+              <v-card rounded="xl" elevation="5" width="100%">
+                <v-card-text
+                  class="p-relative text-body-1"
+                  style="color: #205072"
+                >
+                  <h4>Books</h4>
+                  <h1>Issued</h1>
+                  <router-link
+                    to="/books/issue"
+                    class="p-absolute quarter_icon text-decoration-none"
+                  >
+                    <v-icon dark size="sm">mdi-plus</v-icon>
+                  </router-link>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col class="d-flex">
+              <v-card rounded="xl" elevation="5" width="100%">
+                <v-card-text
+                  class="p-relative text-body-1"
+                  style="color: #205072"
+                >
+                  <h4>Users</h4>
+                  <h1>Registered</h1>
+                  <router-link
+                    to="/users"
+                    class="p-absolute quarter_icon text-decoration-none"
+                  >
+                    <v-icon dark size="sm">mdi-account-search-outline</v-icon>
+                  </router-link>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="6" class="align-self-stretch">
           <v-card rounded="xl" elevation="5" class="h-100-p">

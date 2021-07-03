@@ -37,6 +37,16 @@ export const getBarcodeCustom = /* GraphQL */ `
           copies_present
           copies_issued
         }
+        Transactions(filter: { status: { eq: ISSUED } }) {
+          items {
+            id
+            username
+            due_date
+            fine
+            status
+            bookitemID
+          }
+        }
       }
     }
   }

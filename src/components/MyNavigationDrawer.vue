@@ -57,6 +57,13 @@
             </v-list-item-icon>
             <v-list-item-content>Issue</v-list-item-content>
           </v-list-item>
+
+          <v-list-item to="/books/return">
+            <v-list-item-icon>
+              <v-icon>mdi-book-play</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>Return</v-list-item-content>
+          </v-list-item>
         </v-list-group>
 
         <v-list-item to="/users" color="primary">

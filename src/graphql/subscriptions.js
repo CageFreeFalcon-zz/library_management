@@ -43,6 +43,7 @@ export const onDeleteUserNotification = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateAdminNotification = /* GraphQL */ `
   subscription OnCreateAdminNotification($owner: String) {
     onCreateAdminNotification(owner: $owner) {
@@ -85,6 +86,7 @@ export const onDeleteAdminNotification = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateBook = /* GraphQL */ `
   subscription OnCreateBook {
     onCreateBook {
@@ -196,6 +198,7 @@ export const onDeleteBook = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateBookItem = /* GraphQL */ `
   subscription OnCreateBookItem {
     onCreateBookItem {
@@ -355,6 +358,7 @@ export const onDeleteBookItem = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateRack = /* GraphQL */ `
   subscription OnCreateRack {
     onCreateRack {
@@ -418,6 +422,7 @@ export const onDeleteRack = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateAuthor = /* GraphQL */ `
   subscription OnCreateAuthor {
     onCreateAuthor {
@@ -478,6 +483,7 @@ export const onDeleteAuthor = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateBarcode = /* GraphQL */ `
   subscription OnCreateBarcode {
     onCreateBarcode {
@@ -598,6 +604,7 @@ export const onDeleteBarcode = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateTransaction = /* GraphQL */ `
   subscription OnCreateTransaction($owner: String, $username: String) {
     onCreateTransaction(owner: $owner, username: $username) {
@@ -730,6 +737,7 @@ export const onDeleteTransaction = /* GraphQL */ `
     }
   }
 `;
+
 export const onCreateBookAuthor = /* GraphQL */ `
   subscription OnCreateBookAuthor {
     onCreateBookAuthor {

@@ -42,6 +42,11 @@ const routes = [
     components: layout("book/Issue")
   },
   {
+    path: "/books/return",
+    name: "BookReturn",
+    components: layout("book/Return")
+  },
+  {
     path: "/users",
     name: "Users",
     components: layout("user/List")

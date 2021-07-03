@@ -221,6 +221,7 @@ export default {
         }
       }
       this.saving = false;
+      this.dialog = false;
     }
   },
   async mounted() {
@@ -231,7 +232,6 @@ export default {
       } = await API.graphql({
         query: searchBookCustom,
         variables: {
-          limit: 1,
           sort: { field: "title", direction: "asc" }
         }
       });
